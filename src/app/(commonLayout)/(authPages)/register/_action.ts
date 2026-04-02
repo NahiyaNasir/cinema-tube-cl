@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { ILoginResponse } from "@/src/types/auth.types";
-import { setTokenInCookies } from "@/src/lib/axios/token";
+
 import { IRegisterProps, registerZodSchema } from "@/src/zod/auth.validation";
 import { redirect } from "next/navigation";
 import { httpClient } from "@/src/lib/axios/httpClient";
+import { setTokenInCookies } from "@/src/utils/token";
 
 export const registerAction = async (
   payload: IRegisterProps,

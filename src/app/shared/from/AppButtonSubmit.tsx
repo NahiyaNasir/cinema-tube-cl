@@ -2,8 +2,9 @@
 
 import { Loader2 } from 'lucide-react';
 import React from 'react';
-import { Button } from '../../ui/button';
+
 import { cn } from '@/src/lib/utils';
+import { Button } from '@/components/ui/button';
 
 type AppSubmitButtonProps = {
     isPending : boolean;

@@ -1,6 +1,8 @@
-import { Input } from "@/src/components/ui/input";
-import { Label } from "@/src/components/ui/label";
+;
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/src/lib/utils";
+
 import { AnyFieldApi } from "@tanstack/react-form";
 
 

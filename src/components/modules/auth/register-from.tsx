@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+'use client'
 import { AtSign, Eye, EyeOff, Key, User2, UserPlus2 } from "lucide-react";
 import Link from "next/link";
-import AppSubmitButton from "../../shared/from/AppButtonSubmit";
+import AppSubmitButton from "../../../app/shared/from/AppButtonSubmit";
 
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -10,7 +10,11 @@ import { IRegisterProps, registerZodSchema } from "@/src/zod/auth.validation";
 import { registerAction } from "@/src/app/(commonLayout)/(authPages)/register/_action";
 import { useForm } from "@tanstack/react-form";
 import { useMutation } from "@tanstack/react-query";
-import AppField from "../../shared/from/AppField";
+import AppField from "../../../app/shared/from/AppField";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Checkbox } from "@/components/ui/checkbox";
 
 
 

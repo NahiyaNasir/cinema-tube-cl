@@ -1,12 +1,13 @@
-import { Button } from "@/components/ui/button";
+
+import Hero from "@/src/components/Home/Hero";
 
 
 
 export default function Home() {
   return (
     <div>
-        Common
-      <Button variant="outline">Hello World</Button>
+        <Hero></Hero>
+  
     </div>
   );
 }

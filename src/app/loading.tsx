@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Film } from "lucide-react";
-
-const GlobalLoading = () => {
+ const GlobalLoading = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background overflow-hidden">
 

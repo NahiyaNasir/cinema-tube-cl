@@ -15,6 +15,7 @@ const Hero = () => {
           alt="Hero Banner"
           width={1920}
           height={1080}
+          loading='eager'
           className="h-full object-cover opacity-60"
         />
 

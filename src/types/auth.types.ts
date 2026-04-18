@@ -13,3 +13,16 @@ export interface ILoginResponse {
         emailVerified : boolean;
     }
 }
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  needPasswordChange: boolean;
+  image: string;
+  status: string;
+  emailVerified: boolean;
+  phoneVerified: boolean;
+  phone: string;
+}

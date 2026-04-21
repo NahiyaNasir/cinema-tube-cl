@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+'use server';
 import { httpClient } from "@/src/lib/axios/httpClient";
 import { setTokenInCookies } from "@/src/utils/token";
 import { ISendVerifyOtpProps, IVerifyEmailProps, verifyEmailZodSchema } from "@/src/zod/auth.validation";

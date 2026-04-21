@@ -17,6 +17,7 @@ import Image from "next/image";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { getIconComponent } from "@/src/lib/iconMapper";
 import { IProfileResponse, ProfileMenu } from "@/src/types/profile.types";
+import SubscriptionBadge from "./SubscriptionBadge";
 
 
 export type ProfileTab = "bookmarks" | "favorites" | "watchlists";

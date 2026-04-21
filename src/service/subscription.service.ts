@@ -5,7 +5,8 @@
 
 import { revalidateTag } from "next/cache";
 import { httpClient } from "../lib/axios/httpClient";
-import { SubscriptionPlan } from "../types/enum.types";
+import { SubscriptionPlan } from "../types/payment.types";
+
 
 export const getSubscriptionPlans = async () => {
   try {

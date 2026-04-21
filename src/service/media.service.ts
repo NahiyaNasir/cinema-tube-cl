@@ -35,6 +35,7 @@ export const purchaseMedia = async (payload: any) => {
 
 export const getMyMediaPurchases = async () => {
   const res = await httpClient.get<MediaPurchase[]>("/payments/my-media-purchases");
+  console.log(res);
   return res;
 };
 

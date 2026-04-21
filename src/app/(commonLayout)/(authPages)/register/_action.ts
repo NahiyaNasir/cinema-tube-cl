@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+'use server';
 import { ILoginResponse } from "@/src/types/auth.types";
 
 import { IRegisterProps, registerZodSchema } from "@/src/zod/auth.validation";

@@ -113,7 +113,7 @@ export interface Media {
   title: string;
   slug: string;
   type: string;
-  synopsis: string;
+  description: string;
   releaseYear: number;
   director: string;
   cast: Cast[];
@@ -132,7 +132,7 @@ export interface Media {
   reviewCount: number;
   viewCount: number;
 //   likes: Like[];
-  comments: Comment[];
+  // comments: Comment[];
   bookmarks: Bookmark[];
   favorites: Favorite[];
   reviews: Review[];

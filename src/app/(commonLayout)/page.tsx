@@ -1,13 +1,23 @@
 
+
 import Hero from "@/src/components/Home/Hero";
+import HomeClient from "@/src/components/Home/HomeClient";
+
+import { getUserInfo } from "@/src/service/auth.service";
 
 
 
-export default function Home() {
+
+
+export default async  function Home() {
+    const user = await getUserInfo();
+
   return (
     <div>
         <Hero></Hero>
-  
+      <HomeClient user={user}></HomeClient>
+
+
     </div>
   );
 }

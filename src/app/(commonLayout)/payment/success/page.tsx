@@ -10,14 +10,16 @@ import { authClient } from "@/src/lib/authClient";
 
 export default function PaymentSuccessPage() {
   const { data: session, isPending,  } = authClient.useSession();
+  console.log(session,"PaymentSuccessPage");
   const router = useRouter();
 
-  useEffect(() => {
-    if (!isPending && !session) {
-      router.push("/login");
-    }
-  }, [isPending, session, router]);
+  // useEffect(() => {
+  //   if (!isPending && !session) {
+  //     router.push("/login");
+  //   }
+  // }, [isPending, session, router]);
 
+ 
   if (isPending) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center">

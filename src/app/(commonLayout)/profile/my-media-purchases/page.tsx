@@ -39,7 +39,7 @@ export default function UserBillingPage() {
 
   if (loading)
     return (
-      <div className="p-10 text-center text-gray-400">
+      <div className="p-10 text-center text-gray-400 animate-caret-blink">
         Loading your library...
       </div>
     );
@@ -60,7 +60,7 @@ export default function UserBillingPage() {
           className={`pb-4 text-sm font-medium transition-colors ${
             activeTab === "library"
               ? "border-b-2 border-orange-500 text-orange-500"
-              : "text-gray-400 hover:text-white"
+              : "text-gray-400 hover:text-gray-600"
           }`}
         >
           My Library

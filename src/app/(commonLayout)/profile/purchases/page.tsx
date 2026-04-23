@@ -11,7 +11,7 @@ import { getMyMediaPurchases } from "@/src/service/media.service";
 export default async function PurchasesPage() {
   const res = await getMyMediaPurchases();
   const purchases = res?.data ?? [];
-
+console.log(purchases,"get my purchase");
   const formatDate = (date: string) =>
     new Date(date).toLocaleDateString("en-US", {
       year: "numeric", month: "short", day: "numeric",

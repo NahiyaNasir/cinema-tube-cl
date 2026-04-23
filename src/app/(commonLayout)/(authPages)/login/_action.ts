@@ -8,7 +8,8 @@ import { httpClient } from "@/src/lib/axios/httpClient";
 import { ApiErrorResponse } from "@/src/types/api.types";
 import { ILoginResponse } from "@/src/types/auth.types";
 import { getDefaultRoute, isValidRedirectForRole, Role } from "@/src/utils/auth-client";
-import { setTokenInCookies } from "@/src/utils/token";
+import { setTokenInCookie } from "@/src/utils/token";
+
 import { ILoginProps, loginZodSchema } from "@/src/zod/auth.validation";
 import { redirect } from "next/navigation";
 
@@ -38,9 +39,9 @@ export const loginAction = async (
 
     const { role, emailVerified, needPasswordChange, email } = user;
 
-    await setTokenInCookies("accessToken", accessToken);
-    await setTokenInCookies("refreshToken", refreshToken);
-    await setTokenInCookies(
+    await setTokenInCookie("accessToken", accessToken);
+    await setTokenInCookie("refreshToken", refreshToken);
+    await setTokenInCookie(
       "better-auth.session_token",
       token,
       24 * 60 * 60 * 1000,

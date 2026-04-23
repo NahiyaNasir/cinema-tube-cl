@@ -10,21 +10,15 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+      protocol: "https",
+      hostname: "placehold.co",
+      port: "",
+      pathname: "/**",
+    },
     ],
   },
-  //  headers: async () => {
-  //   return [
-  //     {
-  //       source: '/:path*',
-  //       headers: [
-  //         {
-  //           key: 'Cache-Control',
-  //           value: 'public, max-age=3600, must-revalidate',
-  //         },
-  //       ],
-  //     },
-  //   ];
-  // },
+
 };
 
 

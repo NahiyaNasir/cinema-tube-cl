@@ -1,24 +1,39 @@
-export const dynamic = "force-dynamic";
-
-
-import { Button } from "@/components/ui/button";
 import PricingSection from "@/src/components/Home/PricingSection";
+import SubscriptionClient from "@/src/components/Home/SubscriptionClient";
 import { getUserInfo } from "@/src/service/auth.service";
-import { IProfileResponse } from "@/src/types/profile.types";
-
-import Link from "next/link";
+import { Subscription } from "@/src/types/payment.types";
+import { Crown } from "lucide-react";
 
 export default async function SubscriptionPage() {
   const user = await getUserInfo();
+  console.log(user);
+  const subscription = user?.subscriptions as Subscription;
+  console.log(subscription,"subsccc");
+
+  const isActive =
+    subscription?.status === "ACTIVE" && subscription?.plan !== "FREE";
 
   return (
-    <div className="py-10">
-      <div className="flex items-center justify-center">
-        <Button size={"lg"} className="mx-auto -mb-9 w-fit" asChild>
-          <Link href="/">Back to Home</Link>
-        </Button>
+    <div className="container mx-auto px-4 py-12 space-y-10">
+      <div>
+        <h1 className="text-2xl font-bold text-white flex items-center gap-3">
+          <Crown className="size-5 text-primary" />
+          Subscription
+        </h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          Manage your plan and billing details.
+        </p>
       </div>
-      <PricingSection user={user as IProfileResponse} />
+
+      {/* Pass data to the Client Component */}
+      <SubscriptionClient subscription={subscription} isActive={isActive} />
+
+      {!isActive && (
+        <div>
+          <h2 className="text-xl font-bold text-white mb-2">Upgrade Your Plan</h2>
+          <PricingSection user={user!} />
+        </div>
+      )}
     </div>
   );
 }

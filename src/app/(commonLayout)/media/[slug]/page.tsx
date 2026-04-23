@@ -7,28 +7,18 @@ import {
   Clock,
   Calendar,
   Film,
-  Bookmark,
-  ShoppingCart,
-  MessageSquare,
-  ThumbsUp,
-  Video,
-  History,
   Share2,
   BookmarkPlus,
-  Clapperboard,
-  ChevronRight,
-  Link2,
   Users2,
 } from "lucide-react";
-import Link from "next/link";
-import { notFound } from "next/navigation";
+
 
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { getMediaBySlug, getMyMediaPurchases } from "@/src/service/media.service";
 import { getUserInfo } from "@/src/service/auth.service";
 import MediaActions from "@/src/components/Home/MediaActions";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage, } from "@/components/ui/avatar";
 import { Cast } from "@/src/types/media.types";
 import ReviewForm from "@/src/components/Review/ReviewForm";
 import ReviewSection from "@/src/components/Review/ReviewSection";
@@ -42,12 +32,11 @@ export default async function MediaDetailPage({
 }) {
   const { slug } = await params;
   const { data: media } = await getMediaBySlug(slug);
-//   const platfroms = []
-//   console.log("media", media.platforms[0].platform);
+console.log(media,"medi8a");
 
   const user = await getUserInfo();
   const reviews = media.reviews;
-
+//  console.log(reviews,"slug");
   let hasPurchased = false;
   if (user && media.pricing !== "FREE") {
     try {
@@ -71,7 +60,7 @@ export default async function MediaDetailPage({
             src={
               media.backdropUrl ||
               media.posterUrl ||
-          ""
+          "https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM"
             }
             alt={media.title}
             className="w-full h-full object-cover opacity-40"
@@ -85,8 +74,9 @@ export default async function MediaDetailPage({
               <Image
                 width={900}
                 height={1200}
-                src={media.posterUrl}
+                src={media.posterUrl ||""}
                 alt={media.title}
+                loading="eager"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -151,7 +141,7 @@ export default async function MediaDetailPage({
           {/* Details & Cast */}
           <div className="lg:col-span-2 space-y-8">
             <section>
-              <h2 className="text-2xl font-bold mb-4">Synopsis</h2>
+              <h2 className="text-2xl font-bold mb-4">description</h2>
               <p className="text-neutral-400 leading-relaxed text-md">
                 {media.description}
               </p>
@@ -171,23 +161,23 @@ export default async function MediaDetailPage({
                   </div>
                 ) : (
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                    {media.cast?.map((cast: Cast) => (
+                    {media.cast?.map((Cast: Cast) => (
                       <div
-                        key={cast.id}
+                        key={Cast.id}
                         className="p-5 rounded-xl bg-secondary/15 hover:bg-secondary/55 flex flex-col"
                       >
                         <Avatar className="size-25 mx-auto">
-                          <AvatarImage src={cast.image} />
+                          <AvatarImage src={Cast.image} />
                           <AvatarFallback>
-                            {cast.name.charAt(0).toUpperCase()}
+                            {Cast.name.charAt(0).toUpperCase()}
                           </AvatarFallback>
                         </Avatar>
                         <div className="mt-3 flex flex-col gap-2 items-center justify-between">
                           <p className="font-medium text-neutral-200">
-                            {cast.name}
+                            {Cast.name}
                           </p>
                           <Badge className="text-xs uppercase tracking-tighter px-3 py-3">
-                            {cast.role}
+                            {Cast.role}
                           </Badge>
                         </div>
                       </div>

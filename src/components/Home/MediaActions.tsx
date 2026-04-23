@@ -67,9 +67,9 @@ export default function MediaActions({
         mediaId: media.id,
         type: selectedType,
       })) as any;
-
-      if (res?.data?.data?.session_url) {
-        router.push(res.data.data.session_url);
+        console.log(res.data,"meadia actions");
+      if (res?.data?.session_url) {
+        router.push(res.data.session_url);
       } else {
         toast.error("Failed to initiate checkout");
       }
@@ -126,7 +126,7 @@ export default function MediaActions({
             {media.rentalPrice && (
               <Button
                 size="lg"
-                variant="outline"
+                // variant="outline"
                 className="gap-2 rounded-full px-8 h-12 border-neutral-700 hover:bg-neutral-800"
                 onClick={() => openDialog("RENTAL")}
                 disabled={!!loading}
@@ -137,15 +137,16 @@ export default function MediaActions({
                   <Video className="w-5 h-5" />
                 )}
                 Rent ${Number(media.rentalPrice).toFixed(2)}
-                <span className="text-[10px] text-neutral-400 ml-1">
+                <span className="text-[10px] text-shadow-black ml-1">
                   (48hrs)
                 </span>
+                
               </Button>
             )}
             {media.buyPrice && (
               <Button
                 size="lg"
-                className="gap-2 rounded-full px-8 h-12"
+                className="gap-2 rounded-full px-8 h-12 hover:bg-neutral-800"
                 onClick={() => openDialog("BUY")}
                 disabled={!!loading}
               >
@@ -183,7 +184,7 @@ export default function MediaActions({
             </DialogTitle>
             <DialogDescription className="text-neutral-400">
               You are about to {selectedType === "RENTAL" ? "rent" : "buy"}{" "}
-              <span className="text-white font-medium">{media.title}</span>.
+              <span className="text-neutral-500 font-medium">{media.title}</span>.
             </DialogDescription>
           </DialogHeader>
 

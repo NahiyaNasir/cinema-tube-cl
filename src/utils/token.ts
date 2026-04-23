@@ -1,53 +1,50 @@
-
-
-
-
-"use server"
-
-import jwt, { JwtPayload } from "jsonwebtoken";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { setCookie } from "./cookie";
+import { decodeToken } from "./jwtUtils";
 
 
+const getTokenSecRemaining = (token: string): number => {
+  if (!token) return 0;
 
+  try {
+    const { data } = decodeToken(token);
 
-
-const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET
-
-const getTokenSecondsRemaining =  (token: string): number => {
-    if(!token) return 0;
-
-    try {
-        const tokenPayload= JWT_ACCESS_SECRET ? jwt.verify(token, JWT_ACCESS_SECRET as string) as JwtPayload : jwt.decode(token) as JwtPayload;
-
-        if (tokenPayload && !tokenPayload.exp){
-            return 0;
-        }
-
-        const remainingSeconds = tokenPayload.exp as number - Math.floor(Date.now() / 1000)
-
-        return remainingSeconds > 0 ? remainingSeconds : 0;
-
-    } catch (error) {
-        console.error("Error decoding token:", error);
-        return 0;
+    if (data && !data.exp) {
+      return 0;
     }
-} 
 
-export const setTokenInCookies = async (
-    name : string,
-    token : string,
-    fallbackMaxAgeInSeconds = 60 * 60 * 24 // 1 days
+    const remainingSec = (data?.exp as number) - Math.floor(Date.now() / 1000);
+
+    return remainingSec > 0 ? remainingSec : 0;
+  } catch (error: any) {
+    console.log("Token error: ", error);
+    return 0;
+  }
+};
+
+export const setTokenInCookie = async (
+  name: string,
+  token: string,
+  fallbackMaxAgeInSecond: number = 60 * 60 * 24, // 1 days
 ) => {
-    const maxAgeInSeconds = getTokenSecondsRemaining(token);
+  let maxAgeInSec;
 
-    await setCookie(name, token, maxAgeInSeconds || fallbackMaxAgeInSeconds);
-}
-export async function isTokenExpiringSoon(token: string, thresholdInSeconds = 300) : Promise<boolean> {
-    const remainingSeconds = getTokenSecondsRemaining(token);
-    return remainingSeconds > 0 && remainingSeconds <= thresholdInSeconds;
-}
+  if (name !== "better-auth.session_token") {
+    maxAgeInSec = getTokenSecRemaining(token);
+  }
 
-export async function isTokenExpired(token: string) : Promise<boolean> {
-    const remainingSeconds = getTokenSecondsRemaining(token);
-    return remainingSeconds === 0;
-}
+  await setCookie(name, token, maxAgeInSec || fallbackMaxAgeInSecond);
+};
+
+export const isTokenExpiredSoon = async (
+  token: string,
+  thresholdInSeconds: number = 300,
+): Promise<boolean> => {
+  const remainingSec = getTokenSecRemaining(token);
+  return remainingSec > 0 && remainingSec <= thresholdInSeconds;
+};
+
+export const isTokenExpired = async (token: string): Promise<boolean> => {
+  const remainingSec = getTokenSecRemaining(token);
+  return remainingSec === 0;
+};

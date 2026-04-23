@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDefaultRoute, getRouteOwner, isAuthRoute, Role } from "./src/utils/auth-client";
 import { verifyToken } from "./src/utils/jwtUtils";
 import { getNewTokensWithRefreshToken, getUserInfo } from "./src/service/auth.service";
-import { isTokenExpiringSoon } from "./src/utils/token";
+import { isTokenExpiredSoon } from "./src/utils/token";
+
 
 async function refreshTokenMiddleware(refreshToken: string): Promise<boolean> {
   try {
@@ -37,7 +38,7 @@ export async function proxy(request: NextRequest) {
     if (
       refreshToken &&
       (!isValidAccessToken ||
-        (accessToken && (await isTokenExpiringSoon(accessToken))))
+        (accessToken && (await isTokenExpiredSoon(accessToken))))
     ) {
       const refreshed = await refreshTokenMiddleware(refreshToken);
 

@@ -2,7 +2,8 @@
 
 import { getNewTokensWithRefreshToken } from "@/src/service/auth.service";
 import { ApiResponse } from "@/src/types/api.types";
-import { isTokenExpiringSoon } from "@/src/utils/token";
+import { isTokenExpiredSoon } from "@/src/utils/token";
+
 import axios from "axios";
 import { cookies, headers } from "next/headers";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
@@ -12,7 +13,7 @@ async function tryRefreshToken(
     refreshToken: string
 ): Promise<void>
 {
-    if(!(await isTokenExpiringSoon(accessToken))) {
+    if(!(await isTokenExpiredSoon(accessToken))) {
         return;
     }
 

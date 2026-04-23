@@ -15,7 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Loader2, Ticket, Zap } from "lucide-react";
 import Image from "next/image";
-import { getMediaById } from "@/src/service/media.service";
+import { getMediaById,  } from "@/src/service/media.service";
 import { createMediaCheckoutSession } from "@/src/service/payment.service";
 
 
@@ -33,7 +33,7 @@ export default function CheckoutContent() {
   });
 
   const media = data?.data;
-
+// console.log( media,"pyment rental type");
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -51,7 +51,7 @@ export default function CheckoutContent() {
         type: type as "RENTAL" | "BUY",
       })) as any;
       router.push(response?.data?.session_url);
-      console.log("media payment: ", response);
+      // console.log("media payment: ", response);
     } catch (error) {
       console.error("Payment Error:", error);
     }

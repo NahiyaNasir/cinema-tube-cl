@@ -31,7 +31,7 @@ export default function PricingSection({
 
   const handleSubscribe = async (planName: string) => {
     try {
-      console.log("check plan name: ",planName)
+      // console.log("check plan name: ",planName)
       setProcessingPlan(planName);
       const res = (await createCheckoutSession({ plan: planName })) as any;
       

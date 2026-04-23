@@ -56,7 +56,7 @@ export default function WatchlistButton({
   const [isWatchlisted, setIsWatchlisted] = useState(initialIsWatchlisted);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const watchlist = user?.watchlists.find((w) => w.mediaId === mediaId);
+  const watchlist = user?.watchlists?.find((w) => w.mediaId === mediaId);
 
   console.log(watchlist)
 

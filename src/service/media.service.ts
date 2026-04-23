@@ -21,12 +21,13 @@ export const getMediaBySlug = async (slug: string) => {
 
 export const getMediaById = async (id: string) => {
   const res = await httpClient.get<Media>(`/media/${id}`);
+  console.log(res);
   return res;
 };
 
 // ─── Purchases ────────────────────────────────────────────────
 export const purchaseMedia = async (payload: any) => {
-  const res = await httpClient.post("/payments/purchase-media", payload);
+  const res = await httpClient.post("/payment/purchase-media", payload);
   // Revalidate media and purchases since ownership state has changed
   revalidateTag("media", "");
   revalidateTag("purchases", "");
@@ -34,8 +35,8 @@ export const purchaseMedia = async (payload: any) => {
 };
 
 export const getMyMediaPurchases = async () => {
-  const res = await httpClient.get<MediaPurchase[]>("/payments/my-media-purchases");
-  console.log(res);
+  const res = await httpClient.get<MediaPurchase[]>("/payment/my-media-purchases");
+  console.log(res.data, "my media purchases");
   return res;
 };
 

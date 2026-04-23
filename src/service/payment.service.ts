@@ -11,7 +11,7 @@ export const createMediaCheckoutSession = async (payload: {
   mediaId: string;
   type: "RENTAL" | "BUY";
 }) => {
-  const res = await httpClient.post("/payments/media-checkout", payload);
+  const res = await httpClient.post("/payment/media-checkout", payload);
 
   revalidateTag("purchases", "");
   revalidateTag("payments", "");
@@ -22,8 +22,9 @@ export const createMediaCheckoutSession = async (payload: {
 // ─── Purchases ────────────────────────────────────────────────
 export const getMyMediaPurchases = async () => {
   try {
-    const res = await httpClient.get("/payments/my-media-purchases");
-    return res;
+    const res = await httpClient.get("/payment/my-media-purchases");
+    console.log(res,"payment purchases");
+    return res
   } catch (err: any) {
     console.error("Error fetching purchases:", err);
     throw err; 
@@ -33,10 +34,12 @@ export const getMyMediaPurchases = async () => {
 // ─── Payment History ──────────────────────────────────────────
 export const getMyPayments = async () => {
   try {
-    const res = await httpClient.get<Payment[]>("/payments/my-payments");
+    const res = await httpClient.get<Payment[]>("/payment/my-payments");
+    console.log(res,"payment history");
     return res;
   } catch (error: any) {
     console.error("Error fetching payments:", error);
     throw error;
   }
 };
+

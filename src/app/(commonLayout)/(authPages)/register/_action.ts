@@ -5,7 +5,8 @@ import { ILoginResponse } from "@/src/types/auth.types";
 import { IRegisterProps, registerZodSchema } from "@/src/zod/auth.validation";
 import { redirect } from "next/navigation";
 import { httpClient } from "@/src/lib/axios/httpClient";
-import { setTokenInCookies } from "@/src/utils/token";
+import { setTokenInCookie } from "@/src/utils/token";
+
 
 export const registerAction = async (
   payload: IRegisterProps,
@@ -31,9 +32,9 @@ export const registerAction = async (
       
     const { accessToken, refreshToken, token, user } = res.data;
 
-    await setTokenInCookies("accessToken", accessToken);
-    await setTokenInCookies("refreshToken", refreshToken);
-    await setTokenInCookies("better-auth.session_token", token);
+    await setTokenInCookie("accessToken", accessToken);
+    await setTokenInCookie("refreshToken", refreshToken);
+    await setTokenInCookie("better-auth.session_token", token);
 
     redirect(`/verify-email?email=${user.email}`);
   } catch (error: any) {

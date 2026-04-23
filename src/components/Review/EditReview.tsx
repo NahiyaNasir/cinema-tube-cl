@@ -18,7 +18,7 @@ export default function EditReviewModal({
   user,
 }: {
   initialReview: Review;
-  user: IProfileResponse;
+  user?: IProfileResponse|null;
 }) {
 
     console.log("initialReview", initialReview);

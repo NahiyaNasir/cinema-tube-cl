@@ -14,15 +14,20 @@ import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { IProfileResponse } from "@/src/types/profile.types";
 
-interface ReviewFormProps {
+
+
+export default function ReviewForm({  mediaId,
+  user,
+  initialReview,
+  isEdit,
+}: {
   mediaId: string;
-  user: any;
+  user?: IProfileResponse | null;
+  initialReview?: Review;
   isEdit?: boolean;
-  initialReview:Review
-}
-
-export default function ReviewForm({ mediaId, user, isEdit,initialReview }: ReviewFormProps) {
+}) {
   const queryClient = useQueryClient();
    const router = useRouter();
   const [hoveredStar, setHoveredStar] = useState(0);

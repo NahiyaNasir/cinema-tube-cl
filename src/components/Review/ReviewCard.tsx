@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
 import { Star,  AlertCircle } from "lucide-react";
@@ -10,21 +10,18 @@ import { formatDistanceToNow } from "date-fns";
 
 import EditReviewModal from "./EditReview";
 import DeleteReviewDialog from "./deleteReview";
+import { IProfileResponse } from "@/src/types/profile.types";
 
-interface ReviewCardProps {
-  review: Review;
-  isOwn: boolean;
-  currentUser: any;
-  onEdit?: (review: Review) => void;
-}
 
 export default function ReviewCard({
-  review,
+    review,
   isOwn,
   currentUser,
-
-  onEdit,
-}: ReviewCardProps) {
+}: {
+  review: Review;
+  isOwn: boolean;
+  currentUser?: IProfileResponse|null;
+})  {
 
   const isSpoiler = review.hasSpoiler;
 
@@ -36,13 +33,7 @@ export default function ReviewCard({
         <div className="flex-1">
           {/* Author & Time */}
           <div className="flex items-center gap-3 mb-3">
-            {/* {review.user?.avatar && (
-              <Image
-                src={review.user.avatar}
-                alt={review.user?.name}
-                className="size-10 rounded-full object-cover ring-2 ring-primary/20"
-              />
-            )} */}
+           
             <div>
               <p className="text-sm font-semibold text-white">{review.user?.name}</p>
               <p className="text-xs text-gray-500">
@@ -71,16 +62,10 @@ export default function ReviewCard({
         {/* Actions - Only show for owner */}
         {isOwn && (
           <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-            <button
-              onClick={() => onEdit?.(review)}
-              className="p-2 rounded-lg bg-primary/10 hover:bg-primary/20 text-primary transition-colors"
-              title="Edit review"
-            >
-            <EditReviewModal
+           
+          <EditReviewModal  
             initialReview={review}
             user={currentUser}></EditReviewModal>
-            </button>
-          
             <DeleteReviewDialog review={review}></DeleteReviewDialog>
           </div>
         )}

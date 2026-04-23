@@ -1,29 +1,24 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 
-import { useState } from "react";
-import { MessageSquare } from "lucide-react";
 
-import ReviewCard from "./ReviewCard";
+import { MessageSquare } from "lucide-react";
 import { Review } from "@/src/types/media.types";
 import { IProfileResponse } from "@/src/types/profile.types";
+import ReviewCard from "./ReviewCard";
 
-interface ReviewSectionProps {
-  mediaId: string;
-  initialReviews: Review[];
-  user: IProfileResponse | null;
-  onEditReview?: (review: Review) => void;
-}
+
 
 export default function ReviewSection({
-  mediaId,
-  initialReviews,
+ initialReviews,
   user,
-  onEditReview,
-}: ReviewSectionProps) {
-  const [reviews] = useState<Review[]>(initialReviews);
+}: {
+  initialReviews?: Review[];
+  user?: IProfileResponse | null;
+}) {
 
-  if (reviews.length === 0) {
+
+  if (initialReviews?.length === 0) {
     return (
       <div className="space-y-8">
         <div className="py-12 flex items-center justify-center bg-neutral-900/20 rounded-3xl border border-white/5">
@@ -44,21 +39,21 @@ export default function ReviewSection({
         <div>
           <h2 className="text-lg">See All Reviews</h2>
           <p className="text-sm text-muted-foreground">
-            {reviews.length} {reviews.length === 1 ? "review" : "reviews"}
+            {initialReviews?.length} {initialReviews?.length === 1 ? "review" : "reviews"}
           </p>
         </div>
       </div>
 
       {/* Reviews Grid */}
       <div className="grid gap-5">
-        {reviews.map((review) => (
+        {initialReviews?.map((review) => (
           <ReviewCard
             key={review.id}
             review={review}
             isOwn={review.userId === user?.id}
             currentUser={user}
-            mediaId={mediaId}
-            onEdit={onEditReview}
+       
+        
           />
         ))}
       </div>

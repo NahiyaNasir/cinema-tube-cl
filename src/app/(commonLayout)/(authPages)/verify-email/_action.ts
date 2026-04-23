@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use server';
 import { httpClient } from "@/src/lib/axios/httpClient";
-import { setTokenInCookies } from "@/src/utils/token";
+import { setTokenInCookie } from "@/src/utils/token";
+
 import { ISendVerifyOtpProps, IVerifyEmailProps, verifyEmailZodSchema } from "@/src/zod/auth.validation";
 
 
@@ -21,7 +22,7 @@ export const verifyEmailAction = async (payload: IVerifyEmailProps) => {
     console.log("verify Email Action", res.data);
 
     const { token } = res.data as any;
-    await setTokenInCookies("better-auth.session_token", token);
+    await setTokenInCookie("better-auth.session_token", token);
 
     return res.data;
   } catch (error: any) {

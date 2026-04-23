@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 
@@ -266,7 +267,7 @@ console.log(media,"medi8a");
           <p className="text-sm text-muted-foreground mb-3">
             Share your thoughts and help others decide
           </p>
-          <ReviewForm mediaId={media.id} user={user} isEdit={false} />
+          <ReviewForm mediaId={media.id} user={user} isEdit={false}  />
         </section>
         <ReviewSection initialReviews={reviews} user={user} />
       </div>

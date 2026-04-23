@@ -37,6 +37,7 @@ export interface IProfileResponse {
   updatedAt: string;
   subscription: Subscription;
   purchases: MediaPurchase[];
+  reviews: Array<any>;
 }
 
 export interface Profile {

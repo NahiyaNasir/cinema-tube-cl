@@ -29,7 +29,7 @@ export default function MediaCard({
   const isFree = media.pricing?.toUpperCase() === "FREE";
 
   return (
-    <div className="min-w-40 md:min-w-52 group">
+    <div className="min-w-56 md:min-w-72 group">
       <Link href={`/media/${media.slug}`} className="block">
         {/* --- Card Image Area --- */}
         <div className="relative aspect-2/3 overflow-hidden rounded-2xl bg-muted shadow-md ring-1 ring-white/10">
@@ -37,7 +37,7 @@ export default function MediaCard({
             src={media.posterUrl || "/placeholder-poster.jpg"} 
             alt={media.title}
             fill
-            sizes="(max-width: 768px) 160px, 200px"
+      sizes="(max-width: 768px) 224px, 288px"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
 

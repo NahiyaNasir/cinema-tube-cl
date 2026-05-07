@@ -1,10 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { 
-  Film, 
-  BarChart3, 
+"use client";
+
+
+import {
+  Film,
+  BarChart3,
   LayoutDashboard,
-  LogOut,
   DollarSign,
   Home,
   Clapperboard,
@@ -12,11 +13,19 @@ import {
   UserStar,
   Users,
   Tag,
-  ChevronDown
-} from 'lucide-react';
-
-const AdminSidebar = ({ user }: any) => {
-  const navItems = [
+ 
+  Shield,
+  ChevronRight,
+} from "lucide-react";
+import { IProfileResponse } from "@/src/types/profile.types";
+import { usePathname } from "next/navigation";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarRail, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { CollapsibleContent, CollapsibleTrigger ,  Collapsible,} from "@/components/ui/collapsible";
+import { NavUser } from "./users/NavUser";
+const navItems = [
     { label: "Dashboard", href: "/admin/dashboard", icon: LayoutDashboard },
     {
       label: "Media Library",
@@ -46,77 +55,132 @@ const AdminSidebar = ({ user }: any) => {
     { label: "Profile", href: "/profile/settings", icon: Settings },
   ];
 
+export default function AdminSidebar({ user }: { user: IProfileResponse }) {
+  const pathname = usePathname();
+  const { state } = useSidebar();
+  const isCollapsed = state === "collapsed";
+
   return (
-    <aside className="flex flex-col w-64 h-screen px-5 py-8 overflow-y-auto bg-slate-900 border-r border-slate-800">
-      {/* Brand Logo */}
-      <div className="flex items-center gap-3 px-2 mb-10">
-        <div className="p-2 bg-indigo-600 rounded-lg">
-          <Film className="text-white" size={24} />
-        </div>
-        <span className="text-xl font-bold text-white tracking-tight">StreamAdmin</span>
-      </div>
-
-      {/* Navigation */}
-      <div className="flex flex-col justify-between flex-1">
-        <nav className="space-y-2">
-          {navItems.map((item, idx) => {
-       
-            if (item.type === "divider") {
-              return <div key={idx} className="my-4 border-t border-slate-800" />;
-            }
-
-            const Icon = item.icon; 
-
-            return (
-              <div key={item.label}>
-                {/* Main Link */}
-                <a
-                  href={item.href}
-                  className="flex items-center px-3 py-2 text-slate-300 transition-colors duration-300 transform rounded-lg hover:bg-slate-800 hover:text-white group"
-                >
-                  <span className="group-hover:text-indigo-400 transition-colors">
-                    {Icon && <Icon size={20} />}
-                  </span>
-                  <span className="mx-3 font-medium flex-1">{item.label}</span>
-                  {item.children && <ChevronDown size={14} className="text-slate-500" />}
-                </a>
-
-         
-                {item.children && (
-                  <div className="ml-9 mt-1 space-y-1 border-l border-slate-800">
-                    {item.children.map((child: any) => (
-                      <a
-                        key={child.label}
-                        href={child.href}
-                        className="block px-4 py-2 text-sm text-slate-400 hover:text-indigo-400 transition-colors"
-                      >
-                        {child.label}
-                      </a>
-                    ))}
-                  </div>
-                )}
+    <Sidebar collapsible="icon" className="border-r border-border">
+      <SidebarHeader className="py-4 border-b border-border">
+        <div className="flex items-center gap-3 px-2">
+          <SidebarTrigger className="-ml-1" />
+          {!isCollapsed && (
+            <div className="flex flex-col min-w-0">
+              <div className="flex items-center gap-1.5">
+                <Shield className="size-3.5 text-primary" />
+                <span className="font-bold text-sm tracking-tight leading-none">
+                  Cinema Tube
+                </span>
               </div>
-            );
-          })}
-        </nav>
-
-        {/* User Profile Section */}
-        <div className="mt-10">
-          <div className="flex items-center gap-x-3 p-3 bg-slate-800/50 rounded-xl border border-slate-700/50">
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-white truncate">{user?.name || 'Admin User'}</p>
-              <p className="text-xs text-slate-400 truncate">{user?.email || 'admin@platform.com'}</p>
+              <span className="text-[10px] text-muted-foreground uppercase font-medium tracking-widest mt-0.5">
+                Admin Panel
+              </span>
             </div>
-          </div>
-          
-          <button className="flex items-center w-full px-3 py-2 mt-4 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all group">
-            <LogOut size={18} />
-            <span className="mx-3 font-medium">Logout</span>
-          </button>
+          )}
         </div>
-      </div>
-    </aside>
-  );
-};
+      </SidebarHeader>
 
-export default AdminSidebar;
+      <SidebarContent className="py-2">
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {navItems.map((item, index) => {
+                // Handle Dividers with a unique key
+                if (item.type === "divider") {
+                  return <Separator key={`divider-${index}`} className="my-5" />;
+                }
+
+                const hasChildren = item.children && item.children.length > 0;
+                const isActive =
+                  pathname === item.href ||
+                  (item.href !== "/admin/dashboard" &&
+                    pathname.startsWith(item?.href || ""));
+
+                // Unique key for map items
+                const itemKey = item.href || item.label || `nav-${index}`;
+
+                if (hasChildren) {
+                  return (
+                    <Collapsible
+                      key={itemKey}
+                      asChild
+                      defaultOpen={isActive}
+                      className="group/collapsible"
+                    >
+                      <SidebarMenuItem>
+                        <CollapsibleTrigger asChild>
+                          <SidebarMenuButton
+                            // tooltip={item.label}
+                            isActive={isActive}
+                            className={cn(
+                              "h-10 transition-all duration-200 mt-1",
+                              isActive
+                                ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground shadow-sm"
+                                : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                            )}
+                          >
+                            {item.icon && <item.icon className="size-4 shrink-0" />}
+                            <span>{item.label}</span>
+                            <ChevronRight className="ml-auto size-4 transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                          </SidebarMenuButton>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                          <SidebarMenuSub>
+                            {item.children?.map((subItem) => (
+                              <SidebarMenuSubItem key={subItem.href}>
+                                <SidebarMenuSubButton
+                                  asChild
+                                  isActive={pathname === subItem.href}
+                                >
+                                  <Link href={subItem.href}>
+                                    <span>{subItem.label}</span>
+                                  </Link>
+                                </SidebarMenuSubButton>
+                              </SidebarMenuSubItem>
+                            ))}
+                          </SidebarMenuSub>
+                        </CollapsibleContent>
+                      </SidebarMenuItem>
+                    </Collapsible>
+                  );
+                }
+
+                // Standard Menu Item
+                return (
+                  <SidebarMenuItem key={itemKey}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive}
+                      // tooltip={item.label}
+                      className={cn(
+                        "h-10 transition-all duration-200 mt-1",
+                        isActive
+                          ? "bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground shadow-sm"
+                          : "text-muted-foreground hover:bg-muted/80 hover:text-foreground"
+                      )}
+                    >
+                      <Link href={item?.href || "#"}>
+                        {item.icon && <item.icon className="size-4 shrink-0" />}
+                        <span>{item.label}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+
+      <SidebarFooter className="border-t border-border p-2">
+        <SidebarMenu>
+          <NavUser user={user} />
+        </SidebarMenu>
+      </SidebarFooter>
+
+      <SidebarRail />
+    </Sidebar>
+  );
+}
+

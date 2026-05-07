@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Search, Sparkles, ArrowRight, Loader2 } from "lucide-react";
+import { Search, Sparkles, ArrowRight, Loader2, LoaderPinwheel } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -94,7 +94,7 @@ export default function SearchBar({ className }: { className?: string }) {
             aria-label="Submit search"
           >
             {isLoading ? (
-              <Loader2 className="animate-spin text-primary" />
+              <LoaderPinwheel className="animate-spin text-primary" />
             ) : (
               <Search />
             )}

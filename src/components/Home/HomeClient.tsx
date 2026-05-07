@@ -11,6 +11,7 @@ import PricingSection from "./PricingSection";
 import CategoriesSection from "./CategoriesSection";
 import MediaStrip from "./MediaStripe";
 import ReviewCard from "../Review/ReviewCard";
+import CinemaCTA from "./CTA.section";
 
 
 
@@ -83,8 +84,8 @@ export default function HomeClient({ user }: { user: IProfileResponse}) {
 
       </div>
 
-<div>
-  
+<div className="mt-20">
+  <CinemaCTA></CinemaCTA>
 </div>
       {/* PRICING */}
       <div className="mt-20">

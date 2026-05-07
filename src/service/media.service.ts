@@ -11,7 +11,7 @@ import { Media, MediaPurchase } from "../types/media.types";
 // ─── Media Fetching ───────────────────────────────────────────
 export const getAllMedia = async (params?: any) => {
   const res = await httpClient.get<Media[]>("/media", { params });
-  return res;
+  return res.data;
 };
 
 export const getMediaBySlug = async (slug: string) => {

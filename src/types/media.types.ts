@@ -131,16 +131,11 @@ export interface Media {
   avgRating: number;
   reviewCount: number;
   viewCount: number;
-//   likes: Like[];
-  // comments: Comment[];
   bookmarks: Bookmark[];
   favorites: Favorite[];
   reviews: Review[];
-  purchases: MediaPurchase[];
-
-  genres: Genre[];
-  platforms: MediaPlatform[];
-
+  purchases: MediaPurchase[]
+  genres: Genre[]
   createdAt: string;
   updatedAt: string;
 }

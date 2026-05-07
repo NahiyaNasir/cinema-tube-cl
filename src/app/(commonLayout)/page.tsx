@@ -1,6 +1,6 @@
 
 
-import Hero from "@/src/components/Home/Hero";
+
 import HomeClient from "@/src/components/Home/HomeClient";
 
 import { getUserInfo } from "@/src/service/auth.service";
@@ -14,7 +14,7 @@ export default async  function Home() {
 
   return (
     <div>
-        <Hero></Hero>
+    
       <HomeClient user={user}></HomeClient>
 
 

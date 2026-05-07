@@ -41,7 +41,7 @@ export const resendOtpAction = async (payload: ISendVerifyOtpProps) => {
 
   try {
     const res = await httpClient.post("/auth/send-verify-otp", payload);
-    // console.log("resend Otp Action", res.data);
+    console.log("resend Otp Action", res.data);
     return res.data;
   } catch (error: any) {
     return {

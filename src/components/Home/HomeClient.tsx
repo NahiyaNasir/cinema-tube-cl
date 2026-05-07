@@ -10,6 +10,7 @@ import SearchBar from "./searchBar";
 import PricingSection from "./PricingSection";
 import CategoriesSection from "./CategoriesSection";
 import MediaStrip from "./MediaStripe";
+import ReviewCard from "../Review/ReviewCard";
 
 
 
@@ -20,8 +21,9 @@ export default function HomeClient({ user }: { user: IProfileResponse}) {
     queryFn: () => getAllMedia(),
   });
 
-  const mediaList = data?.data || [];
-console.log(mediaList);
+  const mediaList = data?.data||[];
+  // console.log(mediaList,"home");
+
   // 🎬 Featured
   const featuredMedia = mediaList[0];
 
@@ -81,6 +83,9 @@ console.log(mediaList);
 
       </div>
 
+<div>
+  
+</div>
       {/* PRICING */}
       <div className="mt-20">
         <PricingSection user={user} />

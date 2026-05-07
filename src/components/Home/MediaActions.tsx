@@ -194,6 +194,7 @@ export default function MediaActions({
                 fill
                 src={media.posterUrl || "https://placehold.co/80x120"}
                 alt={media.title}
+                
                 className="rounded-lg object-cover"
               />
             </div>

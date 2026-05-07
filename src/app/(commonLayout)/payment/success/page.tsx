@@ -1,17 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
 import { CheckCircle, ChevronRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { authClient } from "@/src/lib/authClient";
 
 
 export default function PaymentSuccessPage() {
   const { data: session, isPending,  } = authClient.useSession();
-  console.log(session,"PaymentSuccessPage");
-  const router = useRouter();
+  // console.log(session,"PaymentSuccessPage");
+  // const router = useRouter();
 
   // useEffect(() => {
   //   if (!isPending && !session) {

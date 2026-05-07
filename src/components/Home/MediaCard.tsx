@@ -34,7 +34,7 @@ export default function MediaCard({
         {/* --- Card Image Area --- */}
         <div className="relative aspect-2/3 overflow-hidden rounded-2xl bg-muted shadow-md ring-1 ring-white/10">
           <Image
-            src={media.posterUrl}
+            src={media.posterUrl || "/placeholder-poster.jpg"} 
             alt={media.title}
             fill
             sizes="(max-width: 768px) 160px, 200px"

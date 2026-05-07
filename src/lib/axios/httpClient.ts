@@ -7,7 +7,7 @@ import { isTokenExpiredSoon } from "@/src/utils/token";
 import axios from "axios";
 import { cookies, headers } from "next/headers";
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-;
+;console.log(API_BASE_URL,"http");
 async function tryRefreshToken(
     accessToken: string,
     refreshToken: string
@@ -65,7 +65,7 @@ export interface ApiRequestOptions {
 const httpGet = async <TData>(endpoint: string, options?: ApiRequestOptions) : Promise<ApiResponse<TData>> => {
     try {     
         const instance = await axiosInstance();  
-        // console.log("Full URL:", instance.defaults.baseURL + endpoint) 
+        console.log("Full URL:", instance.defaults.baseURL + endpoint) 
         const response = await instance.get<ApiResponse<TData>>(endpoint, {
             params: options?.params,
             headers: options?.headers,

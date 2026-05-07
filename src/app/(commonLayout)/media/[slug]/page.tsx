@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-
 import { Button } from "@/components/ui/button";
 import {
   Star,
@@ -13,18 +12,18 @@ import {
   Users2,
 } from "lucide-react";
 
-
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { getMediaBySlug, getMyMediaPurchases } from "@/src/service/media.service";
+import {
+  getMediaBySlug,
+  getMyMediaPurchases,
+} from "@/src/service/media.service";
 import { getUserInfo } from "@/src/service/auth.service";
 import MediaActions from "@/src/components/Home/MediaActions";
-import { Avatar, AvatarFallback, AvatarImage, } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Cast } from "@/src/types/media.types";
 import ReviewForm from "@/src/components/Review/ReviewForm";
 import ReviewSection from "@/src/components/Review/ReviewSection";
-
-
 
 export default async function MediaDetailPage({
   params,
@@ -33,11 +32,11 @@ export default async function MediaDetailPage({
 }) {
   const { slug } = await params;
   const { data: media } = await getMediaBySlug(slug);
-console.log(media,"medi8a");
+  console.log(media, "medi8a");
 
   const user = await getUserInfo();
   const reviews = media.reviews;
-//  console.log(reviews,"slug");
+  //  console.log(reviews,"slug");
   let hasPurchased = false;
   if (user && media.pricing !== "FREE") {
     try {
@@ -61,7 +60,7 @@ console.log(media,"medi8a");
             src={
               media.backdropUrl ||
               media.posterUrl ||
-          "https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM"
+              "https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM"
             }
             alt={media.title}
             className="w-full h-full object-cover opacity-40"
@@ -75,7 +74,11 @@ console.log(media,"medi8a");
               <Image
                 width={900}
                 height={1200}
-                src={media.posterUrl ||""}
+                // Add a fallback URL instead of empty string
+                src={
+                  media.posterUrl ||
+                  "https://fastly.picsum.photos/id/25/5000/3333.jpg?hmac=yCz9LeSs-i72Ru0YvvpsoECnCTxZjzGde805gWrAHkM"
+                }
                 alt={media.title}
                 loading="eager"
                 className="w-full h-full object-cover"
@@ -267,7 +270,7 @@ console.log(media,"medi8a");
           <p className="text-sm text-muted-foreground mb-3">
             Share your thoughts and help others decide
           </p>
-          <ReviewForm mediaId={media.id} user={user} isEdit={false}  />
+          <ReviewForm mediaId={media.id} user={user} isEdit={false} />
         </section>
         <ReviewSection initialReviews={reviews} user={user} />
       </div>

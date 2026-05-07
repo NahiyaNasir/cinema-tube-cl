@@ -15,10 +15,12 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useRouter } from "next/navigation";
 
 
 
 export default function RegisterForm() {
+    const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [rememberMe, setRememberMe] = useState<boolean>(false);
@@ -51,10 +53,10 @@ export default function RegisterForm() {
         const res = (await mutateAsync(value)) as any;
         console.log("Register Response:", res);
 
-        // if (!res.success) {
-        //   setServerError(res.message || "Registration failed");
-        //   return;
-        // }
+        if (res.success) {
+       router.push("/")
+          return;
+        }
       } catch (error: any) {
         console.log("Register Error:", error);
         setServerError(error.message);

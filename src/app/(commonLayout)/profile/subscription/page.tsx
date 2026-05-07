@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import PricingSection from "@/src/components/Home/PricingSection";
 import SubscriptionClient from "@/src/components/Home/SubscriptionClient";
 import { getUserInfo } from "@/src/service/auth.service";
@@ -6,9 +7,9 @@ import { Crown } from "lucide-react";
 
 export default async function SubscriptionPage() {
   const user = await getUserInfo();
-  console.log(user);
+  // console.log(user);
   const subscription = user?.subscriptions as Subscription;
-  console.log(subscription,"subsccc");
+  // console.log(subscription,"subsccc");
 
   const isActive =
     subscription?.status === "ACTIVE" && subscription?.plan !== "FREE";

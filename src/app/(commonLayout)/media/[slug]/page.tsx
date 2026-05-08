@@ -32,7 +32,7 @@ export default async function MediaDetailPage({
 }) {
   const { slug } = await params;
   const { data: media } = await getMediaBySlug(slug);
-  console.log(media, "medi8a");
+  // console.log(media, "medi8a");
 
   const user = await getUserInfo();
   const reviews = media.reviews;
@@ -49,6 +49,9 @@ export default async function MediaDetailPage({
   const initialIsWatchlisted =
     user?.watchlists?.some((b: any) => b.mediaId === media.id) || false;
 
+  const initialIBookmarks =
+    user?.bookmarks?.some((b: any) => b.mediaId === media.id) || false;
+console.log(initialIBookmarks);
   return (
     <div className="min-h-screen bg-black text-white mt-10">
       {/* Hero Section */}
@@ -124,9 +127,9 @@ export default async function MediaDetailPage({
                   {media.director}
                 </div>
               </div>
-              <p className="max-w-2xl text-md text-neutral-300 line-clamp-3">
+              {/* <p className="max-w-2xl text-md text-neutral-300 line-clamp-3">
                 {media.description}
-              </p>
+              </p> */}
 
               <MediaActions
                 media={media}

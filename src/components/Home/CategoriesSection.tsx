@@ -34,7 +34,7 @@ export default function CategoriesSection() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
 
           {categories.map((cat: any) => (
-            <Link key={cat.slug} href={`/media?genre=${cat.slug}`}>
+            <Link key={cat.slug} href={`/explore?genre=${cat.slug}`}>
 
               <Card
                 className="group relative p-6 text-center cursor-pointer

@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 
 import { Button } from "@/components/ui/button";
 import { adminCreateGenreBulk } from "@/src/service/admin.service";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { QueryClient, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Braces, Plus } from "lucide-react";
+import { Braces,  } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -26,15 +27,11 @@ export default function GenreJsonAddDialog() {
         router.push("/admin/genres")
         toast.success("Genres imported successfully")
       },
-      onError: (error) => {
+      onError: (error:any) => {
         toast.error(error.message)
       }
     });
-  const handleBulkImport = async (data: any) => {
-    console.log("Importing:", data);
-    const res = await createGenreBulk(data);
-    console.log("Bulk Import Response:", res);
-  };
+
 
   return (
     <>
@@ -42,14 +39,7 @@ export default function GenreJsonAddDialog() {
         <Braces />
         Import JSON
       </Button>
-      <JsonImportModal
-        title="Bulk Import Genre"
-        description="Paste an array of genre objects to import multiple genres at once."
-        isOpen={isImportModalOpen}
-        onOpenChange={setIsImportModalOpen}
-        onImport={handleBulkImport}
-        isLoading={isPending}
-      />
+
     </>
   );
 }

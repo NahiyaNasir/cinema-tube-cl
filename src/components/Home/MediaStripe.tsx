@@ -24,16 +24,16 @@ export default function MediaStrip( { title,
   const displayedMedia = mediaList?.slice(0, 3);
   return (
    <div className={`max-w-7xl mx-auto py-6 ${className}`}>
-  <div className="flex justify-between items-center mb-6 px-4 bg-red-600 ">
+  <div className="flex justify-between items-center mb-6 px-4 ">
     <h2 className="text-2xl font-bold tracking-tight text-white">{title}</h2>
-    {exploreLink && (
+
       <Link 
-        href={exploreLink} 
+        href={"/explore"} 
         className="text-sm font-semibold text-primary hover:text-primary/80 border-b border-primary/30 hover:border-primary transition-all pb-1"
           >
-        See all
+        See all 
       </Link>
-    )}
+
   </div>
   <div className="flex gap-5 overflow-x-auto pb-8 px-4 no-scrollbar scroll-smooth select-none items-stretch">
    {isLoading

@@ -39,7 +39,7 @@ interface NavbarProps {
 const Navbar = ({ user }: NavbarProps) => {
   const router = useRouter();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
 
   // Common navigation handlers
   const handleLoginClick = () => {
@@ -88,7 +88,7 @@ const Navbar = ({ user }: NavbarProps) => {
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href="/series" className={navigationMenuTriggerStyle()}>
+                  <Link href="/" className={navigationMenuTriggerStyle()}>
                     TV Series
                   </Link>
                 </NavigationMenuItem>
@@ -104,25 +104,7 @@ const Navbar = ({ user }: NavbarProps) => {
           {/* Right Side Tools */}
           <div className="flex items-center gap-2 lg:gap-4">
             
-            {/* Desktop Search Input */}
-            <div className="relative hidden lg:block">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <input
-                type="search"
-                placeholder="Search movies..."
-                className="w-50 rounded-md border border-input bg-background py-2 pl-9 pr-3 text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 lg:w-75"
-              />
-            </div>
 
-            {/* Mobile Search Toggle */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-            >
-              <Search className="h-5 w-5" />
-            </Button>
 
             {/* User Dropdown (Desktop) */}
             <div className="hidden sm:block">
@@ -185,19 +167,6 @@ const Navbar = ({ user }: NavbarProps) => {
           </div>
         </div>
 
-        {/* Mobile Search Bar Expansion */}
-        {isSearchOpen && (
-          <div className="md:hidden pb-4">
-            <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <input
-                type="search"
-                placeholder="Search movies..."
-                className="w-full rounded-md border border-input bg-background py-2 pl-9 pr-3 text-sm focus-visible:ring-2 focus-visible:ring-ring"
-              />
-            </div>
-          </div>
-        )}
 
         {/* Mobile Menu Content */}
         {isMobileMenuOpen && (

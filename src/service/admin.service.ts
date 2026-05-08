@@ -33,9 +33,18 @@ export const adminGetMediaById = async (id: string) => {
 };
 
 export const adminCreateMedia = async (payload: any) => {
-  const res = await httpClient.post("/media", payload);
+  try {
+     const res = await httpClient.post("/media", payload);
   revalidateTag("media", "");
   return res;
+  } catch (error:any) {
+     console.error("Status:", error.response?.status);
+    console.error("Error body:", error.response?.data);
+    throw error;
+  }
+ 
+ 
+
 };
 
 export const adminUpdateMedia = async (id: string, payload: any) => {
@@ -76,6 +85,7 @@ export const adminUpdateReviewStatus = async (
 };
 
 export const adminDeleteReview = async (id: string) => {
+
   const res = await httpClient.delete(`/reviews/admin/delete/${id}`);
   revalidateTag("reviews", "");
   return res;
@@ -113,13 +123,19 @@ export const getAllGenres = async (params?: any) => {
   return await httpClient.get<Genre[]>("/genres", { params });
 };
 
-export const adminCreateGenre = async (payload: any) => {
-  const res = await httpClient.post("/genres", payload);
-  console.log(res);
-  revalidateTag("genres", "");
-  return res;
-};
 
+export const adminCreateGenre = async (payload: any) => {
+  try {
+    const res = await httpClient.post("/genres", payload);
+    console.log(res.data);
+    revalidateTag("genres", "");
+    return res;
+  } catch (error: any) {
+    console.error("Status:", error.response?.status);
+    console.error("Error body:", error.response?.data); // ← this will tell you exactly why
+    throw error;
+  }
+};
 export const adminUpdateGenre = async (id: string, payload: any) => {
   const res = await httpClient.patch(`/genres/${id}`, payload);
   revalidateTag("genres", "");

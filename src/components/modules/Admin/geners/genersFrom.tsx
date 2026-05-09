@@ -6,7 +6,6 @@ import { ObjectValue, UpdaterFn, useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Loader2, Plus, Save } from "lucide-react";
@@ -40,7 +39,7 @@ export const GenreForm = ({
 
   const { mutateAsync: updateMutateAsync, isPending: updateIsPending } =
     useMutation({
-      mutationFn: (payload: any) => adminUpdateGenre(initialData?.id, payload),
+      mutationFn: (payload: any) => adminUpdateGenre(initialData!.id, payload),
     });
 
   const form = useForm({

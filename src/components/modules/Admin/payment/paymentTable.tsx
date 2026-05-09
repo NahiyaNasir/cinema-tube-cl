@@ -66,7 +66,7 @@ const PaymentTable = () => {
   const items = (data as any)?.data || [];
   const meta = (data as any)?.meta;
 
-  console.log("payment", items);
+  // console.log("payment", items);
 
   const filterConfigs = useMemo<TanTableFilterConfig[]>(
     () => [

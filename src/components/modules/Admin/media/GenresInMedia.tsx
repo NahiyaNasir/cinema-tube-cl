@@ -18,7 +18,8 @@ export default function GenresInMedia({
     queryKey: ["genres"],
     queryFn: () => getAllGenres({ isPublished: true, page: 1, limit: 100 }),
   });
-  const genres = data?.data?.data
+  const genres = data?.data
+  // console.log(genres);
   return (
     <>
       <Label className="flex items-center gap-2">

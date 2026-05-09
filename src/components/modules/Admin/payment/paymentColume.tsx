@@ -79,7 +79,7 @@ export const paymentColumns: ColumnDef<Payment>[] = [
     accessorKey: "type",
     cell: ({ row }) => {
       const type = row.original.mediaPurchase?.type
-      console.log(type,"payment colun");
+      // console.log(type,"payment colun");
       return (
         <Badge variant="outline" className="text-xs">
           {type}

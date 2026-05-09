@@ -8,7 +8,7 @@ import { Crown } from "lucide-react";
 export default async function SubscriptionPage() {
   const user = await getUserInfo();
   // console.log(user);
-  const subscription = user?.subscriptions as Subscription;
+  const subscription = user?.subscriptions?.[0] as Subscription;
   // console.log(subscription,"subsccc");
 
   const isActive =

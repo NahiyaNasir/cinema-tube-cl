@@ -99,8 +99,9 @@ export const GenresClient = ({
     },
   });
 
-  const genres = (data as any)?.data?.data || [];
-  const meta = (data as any)?.data?.meta || {
+  const genres = (data as any)?.data?? [];
+  // console.log(genres,"gen");
+  const meta = (data as any)?.meta || {
     total: 0,
     page: 1,
     limit: 10,

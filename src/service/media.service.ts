@@ -6,11 +6,13 @@
 import { revalidateTag } from "next/cache";
 import { httpClient } from "../lib/axios/httpClient";
 import { Media, MediaPurchase } from "../types/media.types";
+import { ApiResponse } from "../types/api.types";
 
 
 // ─── Media Fetching ───────────────────────────────────────────
 export const getAllMedia = async (params?: any) => {
-  const res = await httpClient.get<Media[]>("/media", { params });
+  const res = await httpClient.get<ApiResponse<Media[]>>("/media", { params });
+  // console.log(res.data,"all media");
   return res.data;
 };
 

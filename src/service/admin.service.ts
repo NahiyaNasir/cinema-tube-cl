@@ -4,6 +4,7 @@
 import { revalidateTag } from "next/cache";
 import { httpClient } from "../lib/axios/httpClient";
 import { Genre } from "../types/media.types";
+import { ApiResponse } from "../types/api.types";
 
 
 // ─── Bulk Operations ──────────────────────────────────────────
@@ -120,7 +121,8 @@ export const adminGetReviewAnalytics = async () => {
 
 // ─── Genre Management ─────────────────────────────────────────
 export const getAllGenres = async (params?: any) => {
-  return await httpClient.get<Genre[]>("/genres", { params });
+  const res=await httpClient.get<ApiResponse<Genre[]>>("/genres", { params });
+  return res.data;
 };
 
 

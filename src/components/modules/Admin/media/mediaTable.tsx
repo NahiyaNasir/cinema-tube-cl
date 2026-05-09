@@ -78,10 +78,10 @@ const MediaTable = ({
   const meta = (data as any)?.meta;
 
 
-console.log(items);
+// console.log(items);
 
 
-console.log("queryString:", queryString);
+// console.log("queryString:", queryString);
 console.log("searchParams.toString():", searchParams.toString());
 
   const filterConfigs = useMemo<TanTableFilterConfig[]>(() => {

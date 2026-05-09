@@ -51,7 +51,7 @@ export default async function MediaDetailPage({
 
   const initialIBookmarks =
     user?.bookmarks?.some((b: any) => b.mediaId === media.id) || false;
-console.log(initialIBookmarks);
+// console.log(initialIBookmarks);
   return (
     <div className="min-h-screen bg-black text-white mt-10">
       {/* Hero Section */}

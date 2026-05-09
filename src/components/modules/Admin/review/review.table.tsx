@@ -72,7 +72,7 @@ const ReviewsTable = ({
   const reviews = (data as any)?.data?.data || [];
   const meta = (data as any)?.data?.meta;
 
-  console.log(reviews);
+  // console.log(reviews);
 
   const filterConfigs = useMemo<TanTableFilterConfig[]>(() => {
     return [

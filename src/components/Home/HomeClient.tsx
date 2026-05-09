@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
 
@@ -10,43 +10,37 @@ import SearchBar from "./searchBar";
 import PricingSection from "./PricingSection";
 import CategoriesSection from "./CategoriesSection";
 import MediaStrip from "./MediaStripe";
-import ReviewCard from "../Review/ReviewCard";
 import CinemaCTA from "./CTA.section";
+import { Loader2Icon } from "lucide-react";
 
-
-
-
-export default function HomeClient({ user }: { user: IProfileResponse}) {
+export default function HomeClient({ user }: { user: IProfileResponse }) {
   const { data, isLoading, isPending } = useQuery({
     queryKey: ["media"],
     queryFn: () => getAllMedia(),
   });
+  if (isLoading || isPending) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <Loader2Icon className="animate-spin h-10 w-10 text-primary" />
+      </div>
+    );
+  }
+  const mediaList = data?.data || ([] as any);
 
-  const mediaList = data?.data||[];
-  // console.log(mediaList,"home");
-
-  // 🎬 Featured
-  const featuredMedia = mediaList[0];
+  const featuredMedia = mediaList?.length > 0 ? mediaList[0] : null;
 
   //  Top Rated
   const topRated = [...mediaList]
     .sort((a, b) => (b.avgRating || 0) - (a.avgRating || 0))
     .slice(0, 10);
-
   //  Newly Added
-  const newlyAdded = [...mediaList]
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() -
-        new Date(a.createdAt).getTime()
-    )
-    .slice(0, 10);
+  const newlyAdded = [...mediaList].slice(0, 10);
 
   //  Editor Picks (adminSelected = true)
- const editorsPicks = [...mediaList].reverse().slice(0, 10);
+  const editorsPicks = [...mediaList].reverse().slice(0, 10);
+
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
-
       {/* HERO */}
       <HeroSection media={featuredMedia} isLoading={isLoading} />
 
@@ -55,38 +49,35 @@ export default function HomeClient({ user }: { user: IProfileResponse}) {
         <SearchBar />
       </div>
 
-    
       <CategoriesSection />
 
       {/* MEDIA SECTIONS */}
       <div className="space-y-10 mt-10">
-
         <MediaStrip
-        user={user}
+          user={user}
           title="Top Rated This Week"
           mediaList={topRated}
           isLoading={isLoading}
         />
 
         <MediaStrip
-        user={user}
+          user={user}
           title=" Newly Added"
           mediaList={newlyAdded}
           isLoading={isLoading}
         />
 
         <MediaStrip
-        user={user}
+          user={user}
           title="Editor’s Picks"
           mediaList={editorsPicks}
           isLoading={isLoading}
         />
-
       </div>
 
-<div className="mt-20">
-  <CinemaCTA></CinemaCTA>
-</div>
+      <div className="mt-20">
+        <CinemaCTA></CinemaCTA>
+      </div>
       {/* PRICING */}
       <div className="mt-20">
         <PricingSection user={user} />

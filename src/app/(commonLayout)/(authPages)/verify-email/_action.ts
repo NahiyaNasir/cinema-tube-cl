@@ -19,7 +19,7 @@ export const verifyEmailAction = async (payload: IVerifyEmailProps) => {
 
   try {
     const res = await httpClient.post("/auth/verify-email", payload);
-    console.log("verify Email Action", res.data);
+    // console.log("verify Email Action", res.data);
 
     const { token } = res.data as any;
     await setTokenInCookie("better-auth.session_token", token);
@@ -41,7 +41,7 @@ export const resendOtpAction = async (payload: ISendVerifyOtpProps) => {
 
   try {
     const res = await httpClient.post("/auth/send-verify-otp", payload);
-    console.log("resend Otp Action", res.data);
+    // console.log("resend Otp Action", res.data);
     return res.data;
   } catch (error: any) {
     return {

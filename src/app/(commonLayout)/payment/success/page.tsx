@@ -3,26 +3,24 @@
 import { CheckCircle, ChevronRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-// import { useRouter } from "next/navigation";
+
 import { authClient } from "@/src/lib/authClient";
+
 
 
 export default function PaymentSuccessPage() {
   const { data: session, isPending,  } = authClient.useSession();
-  // console.log(session,"PaymentSuccessPage");
-  // const router = useRouter();
+   
+  
 
-  // useEffect(() => {
-  //   if (!isPending && !session) {
-  //     router.push("/login");
-  //   }
-  // }, [isPending, session, router]);
+
+ 
 
  
   if (isPending) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center">
-        <Loader2 className="size-10 animate-spin text-primary" />
+        <Loader2 className="size-14 animate-spin text-primary" />
         <p className="mt-4 text-muted-foreground font-medium">Verifying your transaction...</p>
       </div>
     );

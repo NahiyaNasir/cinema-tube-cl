@@ -23,7 +23,7 @@ export default async function ExplorePage({ searchParams }: ExploreProps) {
   const category = searchParams.category || "All";
   
   
-  const { data: mediaList } = await getAllMedia({ 
+  const{data:  mediaList } = await getAllMedia({ 
     search: query, 
     category: category === "All" ? "" : category 
   });

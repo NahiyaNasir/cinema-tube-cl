@@ -33,7 +33,7 @@ async function getDashboardData() {
     adminGetAllUsers({ limit: 1 }),
     adminGetDashboardStats(),
   ]);
-console.log(results);
+// console.log(results);
   const mediaRes =
     results[0].status === "fulfilled" ? (results[0].value as any) : null;
   const reviewsRes =

@@ -1,36 +1,276 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 Movie & Series Rating Portal
 
-## Getting Started
+A modern full-stack Movie & Series Rating Platform where users can explore, stream, rate, review, and interact with movies and TV series. The platform includes authentication, admin management, reviews, comments, likes, watchlists, subscriptions, and premium streaming features.
 
-First, run the development server:
+Built with scalability, performance, security, and user experience in mind using modern web technologies.
+
+---
+
+## 🚀 Features
+
+### 👤 Authentication & Authorization
+- Secure authentication using BetterAuth
+- Email/password login & registration
+- JWT/session-based authentication
+- Protected routes & role-based access
+- Admin & User roles
+
+---
+
+### 🎥 Media Management
+- Browse Movies & TV Series
+- Search & filter by genre, rating, type, and year
+- Detailed media pages
+- Stream movies/series
+- Trailer support
+- Watchlist system
+
+---
+
+### ⭐ Rating & Reviews
+- Rate media from **1–10**
+- Write detailed reviews
+- Like reviews/comments
+- Comment system
+- Review moderation by admin
+
+---
+
+### 💳 Subscription & Monetization
+- Free & premium content
+- Subscription plans
+- Buy or rent movies/series
+- Purchase history
+
+---
+
+### 🛠️ Admin Dashboard
+- Manage movies & series
+- Manage users
+- Moderate reviews/comments
+- Analytics dashboard
+- Category & genre management
+
+---
+
+# 🧱 Tech Stack
+
+## Frontend
+- ⚡ Next.js
+- 🎨 Tailwind CSS
+- 🧩 ShadCN UI
+- 🟦 TypeScript
+
+## Backend
+- 🟢 Node.js
+- 🚂 Express.js
+- 🟦 TypeScript
+
+## Database & ORM
+- 🐘 PostgreSQL
+- 🔺 Prisma ORM
+
+## Authentication
+- 🔐 BetterAuth
+
+---
+
+# 📂 Project Structure
+
+```bash
+movie-rating-portal/
+│
+├── client/                 # Frontend (Next.js)
+│   ├── src/
+│   ├── components/
+│   ├── app/
+│   └── services/
+│
+├── server/                 # Backend (Node.js + Express)
+│   ├── src/
+│   ├── routes/
+│   ├── controllers/
+│   ├── services/
+│   ├── middlewares/
+│   └── prisma/
+│
+└── README.md
+```
+
+---
+
+# ⚙️ Installation
+
+## 1️⃣ Clone Repository
+
+```bash
+git clone https://github.com/your-username/movie-rating-portal.git
+
+cd movie-rating-portal
+```
+
+---
+
+## 2️⃣ Setup Frontend
+
+```bash
+cd client
+
+npm install
+```
+
+### Run Frontend
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Frontend will run on:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 3️⃣ Setup Backend
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+cd server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+npm install
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Setup Environment Variables
 
-## Deploy on Vercel
+Create a `.env` file inside the server folder:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```env
+DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/movie_portal"
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+PORT=5000
+
+BETTER_AUTH_SECRET=your_secret_key
+
+BETTER_AUTH_URL=http://localhost:5000
+```
+
+---
+
+## 4️⃣ Prisma Setup
+
+### Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
+### Run Migration
+
+```bash
+npx prisma migrate dev
+```
+
+---
+
+## 5️⃣ Start Backend Server
+
+```bash
+npm run dev
+```
+
+Backend will run on:
+
+```bash
+http://localhost:5000
+```
+
+---
+
+# 🔑 Environment Variables
+
+## Frontend `.env.local`
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5000/api
+```
+
+## Backend `.env`
+
+```env
+DATABASE_URL=
+PORT=
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=
+```
+
+---
+
+# 🧩 Core Modules
+
+- Authentication
+- Media Management
+- Ratings & Reviews
+- Comments & Likes
+- Streaming System
+- Subscription System
+- Watchlist
+- Admin Dashboard
+- Analytics
+
+---
+
+
+
+# 🔒 Security Features
+
+- Protected API routes
+- Secure authentication
+- Role-based authorization
+- Input validation
+- Error handling
+- Secure password hashing
+- Rate limiting
+- Environment variable protection
+
+---
+
+# 📈 Future Improvements
+
+- Real-time chat
+- Recommendation system
+- AI-based movie suggestions
+- Multi-language support
+- Mobile app
+- Social login
+- Notifications system
+
+---
+
+# 🧪 Scripts
+
+## Frontend
+
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+```
+
+## Backend
+
+```bash
+npm run dev
+npm run build
+npm run start
+```
+
+
+
+
+
+
+
+
+

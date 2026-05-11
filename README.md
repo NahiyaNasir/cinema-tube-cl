@@ -153,6 +153,10 @@ PORT=5000
 BETTER_AUTH_SECRET=your_secret_key
 
 BETTER_AUTH_URL=http://localhost:5000
+
+ ADMIN_EMAIL=superadmin@gmail.com
+
+ ADMIN_PASSWORD=12345678
 ```
 
 ---

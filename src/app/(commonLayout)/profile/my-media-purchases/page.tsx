@@ -96,7 +96,7 @@ export default function UserBillingPage() {
                   />
                   <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
                     <Link
-                      href={`/movies/${item.media.id}`}
+                      href={`/media/${item.media.id}`}
                       className="bg-orange-600 p-3 rounded-full hover:scale-110 transition-transform"
                     >
                       <Play className="fill-current" size={24} />
@@ -131,7 +131,7 @@ export default function UserBillingPage() {
                 You haven&apos;t purchased any media yet.
               </p>
               <Link
-                href="/movies"
+                href="/explore"
                 className="text-orange-500 mt-2 inline-block hover:underline"
               >
                 Browse Movies

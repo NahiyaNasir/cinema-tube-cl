@@ -5,14 +5,21 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
 import { authClient } from "@/src/lib/authClient";
+import { useEffect } from "react";
+
 
 
 
 export default function PaymentSuccessPage() {
-  const { data: session, isPending,  } = authClient.useSession();
+  const { data: session, isPending, refetch } = authClient.useSession();
    
-  
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+     window.location.reload()
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
  
 

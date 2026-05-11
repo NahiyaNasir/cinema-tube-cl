@@ -18,13 +18,13 @@ export default function HomeClient({ user }: { user: IProfileResponse }) {
     queryKey: ["media"],
     queryFn: () => getAllMedia(),
   });
-  if (isLoading || isPending) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <Loader2Icon className="animate-spin h-10 w-10 text-primary" />
-      </div>
-    );
-  }
+  // if (isLoading || isPending) {
+  //   return (
+  //     <div className="flex h-screen items-center justify-center">
+  //       <Loader2Icon className="animate-spin h-10 w-10 text-primary" />
+  //     </div>
+  //   );
+  // }
   const mediaList = data?.data || ([] as any);
 
   const featuredMedia = mediaList?.length > 0 ? mediaList[0] : null;

@@ -119,6 +119,7 @@ export interface Media {
   cast: Cast[];
   posterUrl: string;
   backdropUrl: string;
+   images?: string[];
   trailerUrl: string;
   streamingUrl: string;
   runtimeMinutes: number;

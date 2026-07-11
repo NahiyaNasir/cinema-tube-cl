@@ -61,6 +61,9 @@ export default function MediaForm({
       director: initialData?.director || "",
       posterUrl: initialData?.posterUrl || "",
       backdropUrl: initialData?.backdropUrl || "",
+        images: initialData?.images && initialData.images.length > 0
+        ? initialData.images
+        : [""],
       trailerUrl: initialData?.trailerUrl || "",
       streamingUrl: initialData?.streamingUrl || "",
       pricing: initialData?.pricing || "FREE",
@@ -78,6 +81,11 @@ export default function MediaForm({
         : [],
     },
     onSubmit: async ({ value }) => {
+       const cleanedValue = {
+        ...value,
+        images: (value.images || []).filter(
+          (url: string) => url && url.trim().length > 0
+        ),}
       try {
         if (isEditing) {
           await updateMedia(value);
@@ -256,7 +264,43 @@ export default function MediaForm({
             </div>
           )}
         </form.Field>
-
+{/* Gallery Images */}
+        <form.Field name="images" mode="array">
+          {(field) => (
+            <div className="space-y-2">
+              <Label>Gallery Images</Label>
+              <div className="space-y-2">
+                {field.state.value.map((_: string, i: number) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <Input
+                      value={field.state.value[i]}
+                      placeholder="https://..."
+                      onChange={(e) =>
+                        field.replaceValue(i, e.target.value)
+                      }
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => field.removeValue(i)}
+                    >
+                      <XCircle className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                onClick={() => field.pushValue("")}
+              >
+                Add Image
+              </Button>
+            </div>
+          )}
+        </form.Field>
         {/* Trailer URL */}
         <form.Field name="trailerUrl">
           {(field) => (

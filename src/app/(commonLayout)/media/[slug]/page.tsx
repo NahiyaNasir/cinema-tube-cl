@@ -24,6 +24,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Cast } from "@/src/types/media.types";
 import ReviewForm from "@/src/components/Review/ReviewForm";
 import ReviewSection from "@/src/components/Review/ReviewSection";
+import { getAllMedia } from "@/src/service/media.service";
+import MediaCard from "@/src/components/Home/MediaCard";
+
+import { Media } from "@/src/types/media.types";
+import MediaGallery from "@/src/components/modules/media/mediaGallery";
 
 export default async function MediaDetailPage({
   params,
@@ -52,6 +57,20 @@ export default async function MediaDetailPage({
   const initialIBookmarks =
     user?.bookmarks?.some((b: any) => b.mediaId === media.id) || false;
 // console.log(initialIBookmarks);
+
+  let relatedMedia: Media[] = [];
+  const primaryGenreSlug = media.genres?.[0]?.slug;
+  if (primaryGenreSlug) {
+    try {
+      const relatedRes = await getAllMedia({
+        genre: primaryGenreSlug,
+        limit: 9,
+      });
+      relatedMedia = (relatedRes?.data || []).filter(
+        (m: Media) => m.id !== media.id
+      ).slice(0, 8);
+    } catch (e) {}
+  }
   return (
     <div className="min-h-screen bg-black text-white mt-10">
       {/* Hero Section */}
@@ -127,6 +146,19 @@ export default async function MediaDetailPage({
                   {media.director}
                 </div>
               </div>
+              {media.genres?.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2">
+                  {media.genres.map((genre) => (
+                    <Badge
+                      key={genre.id}
+                      variant="outline"
+                      className="text-xs border-neutral-700 text-neutral-300"
+                    >
+                      {genre.name}
+                    </Badge>
+                  ))}
+                </div>
+              )}
               {/* <p className="max-w-2xl text-md text-neutral-300 line-clamp-3">
                 {media.description}
               </p> */}
@@ -235,7 +267,26 @@ export default async function MediaDetailPage({
           </p>
           <ReviewForm mediaId={media.id} user={user} isEdit={false} />
         </section>
+        {media.images && media.images.length > 0 && (
+          <MediaGallery images={media.images} title={media.title} />
+        )}
+
         <ReviewSection initialReviews={reviews} user={user} />
+
+        {relatedMedia.length > 0 && (
+          <section className="pt-8">
+            <h2 className="text-2xl font-bold mb-6">More Like This</h2>
+            <div className="flex gap-5 overflow-x-auto pb-4 no-scrollbar scroll-smooth items-stretch">
+              {relatedMedia.map((item) => (
+                <MediaCard key={item.id} media={item} user={user} />
+              ))}
+              <div
+                className="min-w-5 md:min-w-10 shrink-0 invisible"
+                aria-hidden="true"
+              />
+            </div>
+          </section>
+        )}
       </div>
     </div>
   );

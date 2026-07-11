@@ -34,7 +34,7 @@ export default function RootLayout({
 
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">     <QueryProviders>
+      <body className="min-h-full flex flex-col" suppressHydrationWarning>     <QueryProviders>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark" // Sets background black by default

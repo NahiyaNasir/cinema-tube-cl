@@ -59,16 +59,16 @@ export const forgotPasswordZodSchema = z.object({
 
 export const profileSchema = z.object({
   name: z.string("Name is required.").min(2, "At least 2 characters."),
-  // username: z
-  //   .string("Username is required.")
-  //   .min(3, "At least 3 characters.")
-  //   .regex(/^[a-z0-9_]+$/, "Only lowercase letters, numbers, underscores."),
-  bio: z.string("Bio is required.").max(300, "Max 300 characters.").optional(),
+  username: z
+    .string("Username is required.")
+    .min(3, "At least 3 characters.")
+    .max(20, "At most 20 characters.")
+ 
 });
 
 export const passwordSchema = z
   .object({
-    oldPassword: z.string("Current password is required.").min(1, "Required."),
+    currentPassword: z.string("Current password is required.").min(1, "Required."),
     newPassword: z.string("New password is required.").min(8, "At least 8 characters."),
     confirmPassword: z.string("Confirm password is required.").min(1, "Required."),
   })

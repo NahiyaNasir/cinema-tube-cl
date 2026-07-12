@@ -74,7 +74,7 @@ const UsersTable = ({
   const users = (data as any)?.data?.data || [];
   const meta = (data as any)?.data?.meta;
 
-  console.log("users from user-table: ", users);
+  // console.log("users from user-table: ", users);
 
   useEffect(() => {
     if (meta && meta.totalPages > 0) {

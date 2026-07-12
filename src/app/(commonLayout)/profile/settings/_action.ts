@@ -16,7 +16,7 @@ export const updateProfileAction = async (payload: {
   image?: string;
 }): Promise<IActionResponse> => {
   try {
-    const res = await httpClient.patch<any>("/user/profile", payload);
+    const res = await httpClient.patch<any>("/profile", payload);
     revalidatePath("/profile/settings");
     revalidatePath("/profile");
     return {
@@ -48,7 +48,7 @@ export const changePasswordAction = async (
 
   try {
     await httpClient.post("/auth/change-password", {
-      oldPassword: parsed.data.oldPassword,
+      currentPassword: parsed.data.currentPassword,
       newPassword: parsed.data.newPassword,
     });
     return {

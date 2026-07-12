@@ -1,33 +1,47 @@
-"use client"; // Required for click handlers
+"use client";
 
 import { Check, Trash2, X } from "lucide-react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { 
-  Tooltip, 
-  TooltipContent, 
-  TooltipProvider, 
-  TooltipTrigger 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { adminUpdateReviewStatus } from "@/src/service/admin.service";
 
 interface AdminReviewActionButtonsProps {
   reviewId: string;
   compact?: boolean;
 }
 
-export function AdminReviewActionButtons({ 
-  reviewId, 
-  compact 
+export function AdminReviewActionButtons({
+  reviewId,
+  compact,
 }: AdminReviewActionButtonsProps) {
-  
-  const handleApprove = async () => {
-    // Logic: Call your API or Server Action to set status to "PUBLISHED"
-    console.log("Approving review:", reviewId);
-  };
+  const queryClient = useQueryClient();
 
-  const handleReject = async () => {
-    // Logic: Call your API or Server Action to delete or mark as "REJECTED"
-    console.log("Rejecting review:", reviewId);
-  };
+  const { mutate: updateReviewStatus, isPending } = useMutation({
+    mutationFn: (status: "APPROVED" | "UNPUBLISHED") =>
+      adminUpdateReviewStatus(reviewId, status),
+    onSuccess: (_, status) => {
+      queryClient.invalidateQueries({ queryKey: ["reviews"] });
+      toast.success(
+        status === "APPROVED" ? "Review approved" : "Review rejected"
+      );
+    },
+    onError: (error: any) => {
+      toast.error(
+        error?.response?.data?.message || "Failed to update review status"
+      );
+    },
+  });
+
+  const handleApprove = () => updateReviewStatus("APPROVED");
+
+  const handleReject = () => updateReviewStatus("UNPUBLISHED");
 
   if (compact) {
     return (
@@ -40,6 +54,7 @@ export function AdminReviewActionButtons({
                 size="icon"
                 className="size-8 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50"
                 onClick={handleApprove}
+                disabled={isPending}
               >
                 <Check className="size-4" />
               </Button>
@@ -54,6 +69,7 @@ export function AdminReviewActionButtons({
                 size="icon"
                 className="size-8 text-red-500 hover:text-red-600 hover:bg-red-50"
                 onClick={handleReject}
+                disabled={isPending}
               >
                 <Trash2 className="size-4" />
               </Button>
@@ -72,6 +88,7 @@ export function AdminReviewActionButtons({
         size="sm" 
         className="text-xs border-emerald-500/20 text-emerald-600 hover:bg-emerald-50"
         onClick={handleApprove}
+        disabled={isPending}
       >
         <Check className="size-3 mr-1" /> Approve
       </Button>
@@ -80,6 +97,7 @@ export function AdminReviewActionButtons({
         size="sm" 
         className="text-xs border-red-500/20 text-red-600 hover:bg-red-50"
         onClick={handleReject}
+        disabled={isPending}
       >
         <X className="size-3 mr-1" /> Reject
       </Button>

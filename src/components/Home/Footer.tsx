@@ -48,14 +48,15 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
+          
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
               Explore
             </h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
+            <li>
                 <Link
-                  href="/movies"
+                  href="/explore?type=MOVIE"
                   className="hover:text-primary transition-colors"
                 >
                   Movies
@@ -63,7 +64,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/series"
+                  href="/explore?type=SERIES"
                   className="hover:text-primary transition-colors"
                 >
                   TV Series
@@ -71,7 +72,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/top-rated"
+                  href="/explore?sortBy=avgRating&sortOrder=desc"
                   className="hover:text-primary transition-colors"
                 >
                   Top Rated
@@ -79,10 +80,10 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/upcoming"
+                  href="/explore?sortBy=createdAt&sortOrder=desc"
                   className="hover:text-primary transition-colors"
                 >
-                  Upcoming
+                  New Releases
                 </Link>
               </li>
             </ul>

@@ -141,7 +141,7 @@ function PasswordSection() {
   const [serverError, setServerError] = useState<string | null>(null);
   const { mutateAsync, isPending } = useMutation({
     mutationFn: (payload: {
-      oldPassword: string;
+      currentPassword: string;
       newPassword: string;
       confirmPassword: string;
     }) => changePasswordAction(payload),
@@ -149,7 +149,7 @@ function PasswordSection() {
 
   const form = useForm({
     defaultValues: {
-      oldPassword: "",
+     currentPassword : "",
       newPassword: "",
       confirmPassword: "",
     },
@@ -189,8 +189,8 @@ function PasswordSection() {
         className="space-y-4"
       >
         <form.Field
-          name="oldPassword"
-          validators={{ onChange: passwordSchema.shape.oldPassword }}
+          name="currentPassword"
+          validators={{ onChange: passwordSchema.shape.currentPassword }}
         >
           {(field) => (
             <AppField

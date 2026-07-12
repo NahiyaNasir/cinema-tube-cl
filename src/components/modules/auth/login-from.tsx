@@ -42,7 +42,7 @@ export default function LoginForm({ }: LoginFormProps) {
       try {
         const res = (await mutateAsync(value)) as any;
 
-        console.log("Login form action response: ", res);
+        // console.log("Login form action response: ", res);
 
         if (res?.message === "Login failed: Invalid email or password") {
           toast.warning("User not found! Please register first.");
@@ -53,7 +53,7 @@ export default function LoginForm({ }: LoginFormProps) {
         //   return;
         // }
       } catch (error: any) {
-        console.log("Login form action error: ", error);
+        // console.log("Login form action error: ", error);
         setServerError(`Login failed: ${error.message}`);
       }
     },

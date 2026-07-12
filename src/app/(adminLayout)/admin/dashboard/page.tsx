@@ -17,9 +17,13 @@ import {
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { adminGetAllMedia, adminGetAllReviews, adminGetAllUsers, adminGetDashboardStats } from "@/src/service/admin.service";
+import { adminGetAllMedia, adminGetAllReviews, adminGetAllUsers, adminGetDashboardStats, adminGetSalesAnalytics, adminGetReviewAnalytics } from "@/src/service/admin.service";
 import { StatsCard } from "@/src/components/modules/Admin/StatsCard";
 import { AdminReviewActionButtons } from "@/src/components/modules/Admin/AdminReviewActionButtons";
+import RevenueLineChart from "@/src/components/modules/Admin/charts/LineChart";
+import RevenueBreakdownPieChart from "@/src/components/modules/Admin/charts/PieChart";
+import ReviewRatingBarChart from "@/src/components/modules/Admin/charts/BarChart";
+
 
 export const metadata = {
   title: "Admin Dashboard | Cinema Tube",
@@ -32,6 +36,8 @@ async function getDashboardData() {
     adminGetAllReviews({ status: "UNPUBLISHED", limit: 8 }),
     adminGetAllUsers({ limit: 1 }),
     adminGetDashboardStats(),
+    adminGetSalesAnalytics(),
+    adminGetReviewAnalytics(),
   ]);
 // console.log(results);
   const mediaRes =
@@ -42,9 +48,15 @@ async function getDashboardData() {
     results[2].status === "fulfilled" ? (results[2].value as any) : null;
   const statsRes =
     results[3].status === "fulfilled" ? (results[3].value as any) : null;
+  const salesRes =
+    results[4].status === "fulfilled" ? (results[4].value as any) : null;
+  const reviewAnalyticsRes =
+    results[5].status === "fulfilled" ? (results[5].value as any) : null;
 
   // log this if still broken:
   // console.log("reviewsRes", JSON.stringify(reviewsRes?.data, null, 2));
+
+  const salesData = salesRes?.data?.data ?? salesRes?.data ?? null;
 
   return {
     topMedia: Array.isArray(mediaRes?.data?.data) ? mediaRes.data.data : [],
@@ -55,6 +67,13 @@ async function getDashboardData() {
     totalUsers: usersRes?.data?.meta?.total ?? 0,
     totalMedia: mediaRes?.data?.meta?.total ?? 0,
     totalPending: reviewsRes?.data?.meta?.total ?? 0,
+    salesOverTime: salesData?.salesOverTime ?? [],
+    subscriptionRevenue: salesData?.subscriptionRevenue ?? 0,
+    purchaseRevenue: salesData?.purchaseRevenue ?? 0,
+    rentalRevenue: salesData?.rentalRevenue ?? 0,
+    ratingDistribution:
+      (reviewAnalyticsRes?.data?.data ?? reviewAnalyticsRes?.data)?.byRating ??
+      [],
   };
 }
 
@@ -66,6 +85,11 @@ export default async function AdminDashboardPage() {
     totalUsers,
     totalMedia,
     totalPending,
+    salesOverTime,
+    subscriptionRevenue,
+    purchaseRevenue,
+    rentalRevenue,
+    ratingDistribution,
   } = await getDashboardData();
 
   const cards = [
@@ -116,6 +140,28 @@ export default async function AdminDashboardPage() {
         {cards?.map((card) => (
           <StatsCard key={card.title} {...card} />
         ))}
+      </div>
+
+      {/* Charts */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="xl:col-span-2 p-5 rounded-xl border border-border bg-card">
+          <h2 className="font-semibold text-sm mb-4">Revenue Over Time</h2>
+          <RevenueLineChart data={salesOverTime} />
+        </div>
+        <div className="p-5 rounded-xl border border-border bg-card">
+          <h2 className="font-semibold text-sm mb-4">Revenue Breakdown</h2>
+          <RevenueBreakdownPieChart
+            subscriptionRevenue={subscriptionRevenue}
+            purchaseRevenue={purchaseRevenue}
+            rentalRevenue={rentalRevenue}
+          />
+        </div>
+        <div className="xl:col-span-3 p-5 rounded-xl border border-border bg-card">
+          <h2 className="font-semibold text-sm mb-4">
+            Review Rating Distribution
+          </h2>
+          <ReviewRatingBarChart data={ratingDistribution} />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-5 gap-6 h-full">

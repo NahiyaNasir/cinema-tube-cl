@@ -23,8 +23,8 @@ export default function UserBillingPage() {
         const purchaseData = await getMyMediaPurchases();
         const paymentData = await getMyPayments();
 
-        console.log("paymentData", paymentData);
-        console.log("purchaseData", purchaseData);
+        // console.log("paymentData", paymentData);
+        // console.log("purchaseData", purchaseData);
 
         setPurchases(purchaseData?.data || []);
         setPayments(paymentData?.data || []);

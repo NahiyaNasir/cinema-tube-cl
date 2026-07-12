@@ -35,7 +35,7 @@ export default function PricingSection({
       setProcessingPlan(planName);
       const res = (await createCheckoutSession({ plan: planName })) as any;
       
-      console.log("check res of subscription: ",res)
+      // console.log("check res of subscription: ",res)
 
       if (res?.data?.session_url) {
         return router.push(res.data.session_url);

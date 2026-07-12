@@ -28,7 +28,7 @@ export const registerAction = async (
         "/auth/register",
         parsedPayload.data,
       );
-      console.log("Register 000 Payload:", res);
+      // console.log("Register 000 Payload:", res);
       
     const { accessToken, refreshToken, token, user } = res.data;
 

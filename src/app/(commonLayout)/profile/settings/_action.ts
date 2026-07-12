@@ -47,7 +47,7 @@ export const changePasswordAction = async (
   }
 
   try {
-    await httpClient.post("/users/change-password", {
+    await httpClient.post("/auth/change-password", {
       currentPassword: parsed.data.currentPassword,
       newPassword: parsed.data.newPassword,
     });

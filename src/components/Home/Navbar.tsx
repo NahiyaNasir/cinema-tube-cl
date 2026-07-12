@@ -109,7 +109,7 @@ const Navbar = ({ user }: NavbarProps) => {
                   <DropdownMenuTrigger className="flex items-center gap-2 rounded-md border border-input bg-background px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
                     <User className="h-4 w-4" />
                     <span className="hidden sm:inline">
-                      {user?.name?.split(" ")[0] || "User"}
+                      {user?.name?.split(" ")[0]?.charAt(0).toUpperCase() + user?.name?.split(" ")[0]?.slice(1) || "User"}
                     </span>
                   </DropdownMenuTrigger>
                   

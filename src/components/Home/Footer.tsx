@@ -140,12 +140,9 @@ const Footer = () => {
               content delivered straight to your inbox.
             </p>
             <div className="flex flex-col gap-2">
-              <input
-                type="email"
-                placeholder="Email address"
-                className="rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              />
-              <Button className="w-full">Subscribe</Button>
+      
+               <Link href="/subscription">       <Button className="w-full">Subscribe</Button></Link>
+       
             </div>
           </div>
         </div>

@@ -71,8 +71,8 @@ const Navbar = ({ user }: NavbarProps) => {
           {/* Logo Section */}
           <div className="flex items-center gap-2 shrink-0">
             <Link href="/" className="flex items-center space-x-2">
-              <Film className="h-6 w-6 text-primary" />
-              <span className="xs:inline text-xl font-bold tracking-tight">
+              <Film className="h-6 w-6 text-neutral-600" />
+              <span className="xs:inline text-xl font-bold tracking-tight text-primary">
                 Cinema Tube
               </span>
             </Link>
@@ -83,20 +83,16 @@ const Navbar = ({ user }: NavbarProps) => {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <Link href="/media" className={navigationMenuTriggerStyle()}>
-                    Movies
+                  <Link href="/about" className={navigationMenuTriggerStyle()}>
+                    About
                   </Link>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <Link href="/" className={navigationMenuTriggerStyle()}>
-                    TV Series
+                  <Link href="/explore" className={navigationMenuTriggerStyle()}>
+                    Explore
                   </Link>
                 </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link href="/top-rated" className={navigationMenuTriggerStyle()}>
-                    Top Rated
-                  </Link>
-                </NavigationMenuItem>
+                
               </NavigationMenuList>
             </NavigationMenu>
           </nav>
@@ -172,10 +168,9 @@ const Navbar = ({ user }: NavbarProps) => {
         {isMobileMenuOpen && (
           <div className="md:hidden pb-6 border-t">
             <div className="flex flex-col space-y-2 pt-4">
-              <Link href="/movies" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-2 hover:bg-accent rounded-md">Movies</Link>
-              <Link href="/series" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-2 hover:bg-accent rounded-md">TV Series</Link>
-              <Link href="/top-rated" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-2 hover:bg-accent rounded-md">Top Rated</Link>
-
+              <Link href="/about" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-2 hover:bg-accent rounded-md">About</Link>
+              <Link href="/explore" onClick={() => setIsMobileMenuOpen(false)} className="px-4 py-2 hover:bg-accent rounded-md">Explore</Link>
+            
               <div className="h-px bg-border my-2" />
 
               {user ? (

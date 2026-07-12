@@ -3,6 +3,7 @@
 "use client";
 
 import { getAllMedia } from "@/src/service/media.service";
+import { getAllGenres } from "@/src/service/admin.service";
 import { IProfileResponse } from "@/src/types/profile.types";
 import { useQuery } from "@tanstack/react-query";
 import HeroSection from "./HeroSection";
@@ -11,6 +12,8 @@ import PricingSection from "./PricingSection";
 import CategoriesSection from "./CategoriesSection";
 import MediaStrip from "./MediaStripe";
 import CinemaCTA from "./CTA.section";
+import StatsSection from "./StatsSection";
+import HowItWorksSection from "./HowItWorksSection";
 import { Loader2Icon } from "lucide-react";
 
 export default function HomeClient({ user }: { user: IProfileResponse }) {
@@ -18,6 +21,17 @@ export default function HomeClient({ user }: { user: IProfileResponse }) {
     queryKey: ["media"],
     queryFn: () => getAllMedia(),
   });
+
+  const { data: genresData } = useQuery({
+    queryKey: ["genres", "homepage-stats"],
+    queryFn: () => getAllGenres({ limit: 50 }),
+  });
+
+  const { data: seriesData } = useQuery({
+    queryKey: ["media", "series-count"],
+    queryFn: () => getAllMedia({ type: "SERIES", limit: 1 }),
+  });
+
   // if (isLoading || isPending) {
   //   return (
   //     <div className="flex h-screen items-center justify-center">
@@ -26,8 +40,6 @@ export default function HomeClient({ user }: { user: IProfileResponse }) {
   //   );
   // }
   const mediaList = data?.data || ([] as any);
-
-  const featuredMedia = mediaList?.length > 0 ? mediaList[0] : null;
 
   //  Top Rated
   const topRated = [...mediaList]
@@ -39,17 +51,39 @@ export default function HomeClient({ user }: { user: IProfileResponse }) {
   //  Editor Picks (adminSelected = true)
   const editorsPicks = [...mediaList].reverse().slice(0, 10);
 
+  // Hero carousel uses the top rated titles as featured slides
+  const heroSlides = topRated.slice(0, 5);
+
+  // Real, dynamic stats
+  const totalTitles = (data as any)?.meta?.total ?? mediaList.length;
+  const totalGenres =
+    (genresData as any)?.data?.length ?? (genresData as any)?.meta?.total ?? 0;
+  const totalSeries = (seriesData as any)?.meta?.total ?? 0;
+  const topRating = topRated[0]?.avgRating ?? 0;
+
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
       {/* HERO */}
-      <HeroSection media={featuredMedia} isLoading={isLoading} />
+      <HeroSection mediaList={heroSlides} isLoading={isLoading} />
 
       {/* SEARCH */}
       <div className="max-w-7xl mx-auto px-4 mt-6">
         <SearchBar />
       </div>
 
-      <CategoriesSection />
+      {/* STATS */}
+      <div className="mt-10">
+        <StatsSection
+          totalTitles={totalTitles}
+          totalGenres={totalGenres}
+          totalSeries={totalSeries}
+          topRating={topRating}
+        />
+      </div>
+
+      <div className="mt-10">
+        <CategoriesSection />
+      </div>
 
       {/* MEDIA SECTIONS */}
       <div className="space-y-10 mt-10">
@@ -73,6 +107,10 @@ export default function HomeClient({ user }: { user: IProfileResponse }) {
           mediaList={editorsPicks}
           isLoading={isLoading}
         />
+      </div>
+
+      <div className="mt-20">
+        <HowItWorksSection />
       </div>
 
       <div className="mt-20">

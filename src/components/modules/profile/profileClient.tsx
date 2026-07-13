@@ -194,7 +194,7 @@ export default function ProfileClient({
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 mt-3">
+          {/* <div className="flex flex-col gap-2 mt-3">
             <h3>Your Activity</h3>
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 items-center gap-5">
               {Object.entries(user?.meta || {}).map(([key, value], i) => (
@@ -210,9 +210,9 @@ export default function ProfileClient({
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
-          <div className="w-full mt-5">
+          {/* <div className="w-full mt-5">
             <ScrollArea className="md:w-4xl whitespace-nowrap p-4 mx-auto">
               <div className="flex w-full gap-4">
                 {user?.[tab]?.length === 0 ? (
@@ -246,7 +246,7 @@ export default function ProfileClient({
               </div>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
-          </div>
+          </div> */}
         </div>
       </div>
 

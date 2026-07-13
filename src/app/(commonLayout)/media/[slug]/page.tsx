@@ -29,6 +29,7 @@ import MediaCard from "@/src/components/Home/MediaCard";
 
 import { Media } from "@/src/types/media.types";
 import MediaGallery from "@/src/components/modules/media/mediaGallery";
+import BookmarkButton from "@/src/components/modules/profile/BookmarkButton";
 
 export default async function MediaDetailPage({
   params,
@@ -122,7 +123,11 @@ export default async function MediaDetailPage({
                     <Share2 />
                   </Button>
                   <Button size={"icon-lg"} variant={"ghost"}>
-                    <BookmarkPlus />
+                    <BookmarkButton
+                    mediaId={media.id}
+                    initialIsBookmarked={initialIBookmarks}
+                    user={user}
+                  />
                   </Button>
                 </div>
               </div>

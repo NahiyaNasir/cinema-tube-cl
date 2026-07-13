@@ -74,7 +74,7 @@ export default function RegisterForm() {
         <p className="text-sm text-muted-foreground">
           We are glad to have you here! Please enter your details to register
           and join with us to explore the world of{" "}
-          <span className="font-bold text-orange-500">Cinema Tube</span>.
+          <span className="font-bold text-primary">Cinema Tube</span>.
         </p>
       </div>
       <div className="flex flex-col gap-3 mt-11">
@@ -231,7 +231,7 @@ export default function RegisterForm() {
       </div>
       <div className="flex flex-col gap-3 mt-5">
         <div className="flex items-center gap-2">
-          <div className="flex-1 h-px bg-orange-500"></div>
+          <div className="flex-1 h-px bg-secondary"></div>
           <p className="text-sm text-muted-foreground">Or continue with</p>
         </div>
         {/* Social Providers */}

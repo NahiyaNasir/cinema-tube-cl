@@ -48,6 +48,7 @@ export async function getNewTokensWithRefreshToken(
   }
 }
 
+
 export async function getUserInfo() {
   try {
     const cookieStore = await cookies();
@@ -74,7 +75,7 @@ export async function getUserInfo() {
     }
 
     const { data } = await res.json();
-    console.log(data, "userinfo");
+    // console.log(data, "userinfo");
     return data;
   } catch (error) {
     console.error("Error fetching user info:", error);

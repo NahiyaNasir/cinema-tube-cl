@@ -14,12 +14,7 @@ export default function PaymentSuccessPage() {
   const { data: session, isPending, refetch } = authClient.useSession();
    
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-     window.location.reload()
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, []);
+ 
 
  
 

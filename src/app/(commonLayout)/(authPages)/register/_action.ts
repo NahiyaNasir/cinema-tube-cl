@@ -37,7 +37,6 @@ export const registerAction = async (
     await setTokenInCookie("better-auth.session_token", token);
 
     // redirect(`/verify-email?email=${user.email}`);
-    redirect("/");
   } catch (error: any) {
     if (
       error &&

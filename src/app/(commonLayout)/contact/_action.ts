@@ -34,7 +34,7 @@ export const submitContactMessage = async (
 
     return {
       success: true,
-      message: res.data.message || "Your message has been sent successfully.",
+      message: res.message || "Your message has been sent successfully.",
     };
   } catch (error: unknown) {
     return {

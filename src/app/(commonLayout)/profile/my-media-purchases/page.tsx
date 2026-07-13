@@ -8,7 +8,8 @@ import { MediaPurchase } from "@/src/types/media.types";
 import { Payment } from "@/src/types/payment.types";
 import { getMyMediaPurchases } from "@/src/service/media.service";
 import { getMyPayments } from "@/src/service/payment.service";
-import { CheckCircle, Clock, Play, Receipt } from "lucide-react";
+import { CheckCircle, ChevronLeft, Clock, Play, Receipt } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 
 export default function UserBillingPage() {
@@ -47,7 +48,14 @@ export default function UserBillingPage() {
   return (
     <div className="max-w-6xl mx-auto p-6 min-h-screen text-white">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold">Account & Billing</h1>
+        <div className="flex items-center gap-5 mb-3">
+          <Link href="/profile">
+            <Button size="icon-lg" variant="ghost">
+              <ChevronLeft />
+            </Button>
+          </Link>
+          <h1 className="text-3xl font-bold">Account & Billing</h1>
+        </div>
         <p className="text-gray-400">
           Manage your purchases and view your streaming access.
         </p>

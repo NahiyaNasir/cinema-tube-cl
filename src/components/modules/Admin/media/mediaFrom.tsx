@@ -83,9 +83,9 @@ export default function MediaForm({
     onSubmit: async ({ value }) => {
        const cleanedValue = {
         ...value,
-        images: (value.images || []).filter(
-          (url: string) => url && url.trim().length > 0
-        ),}
+      images: (value.images || [])
+          .map((url: string) => url.trim())
+          .filter((url: string) => url.length > 0),}
       try {
         if (isEditing) {
           await updateMedia(value);

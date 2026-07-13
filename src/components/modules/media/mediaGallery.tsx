@@ -3,7 +3,9 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import { normalizeImageUrl } from "@/src/lib/utils";
 import { cn } from "@/lib/utils";
+
 
 export default function MediaGallery({
   images,
@@ -15,12 +17,16 @@ export default function MediaGallery({
   const [activeIndex, setActiveIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
-  if (!images || images.length === 0) return null;
+  const safeImages = (images || [])
+    .map((src) => normalizeImageUrl(src))
+    .filter((src): src is string => !!src);
+
+  if (safeImages.length === 0) return null;
 
   const goPrev = () =>
-    setActiveIndex((i) => (i === 0 ? images.length - 1 : i - 1));
+    setActiveIndex((i) => (i === 0 ? safeImages.length - 1 : i - 1));
   const goNext = () =>
-    setActiveIndex((i) => (i === images.length - 1 ? 0 : i + 1));
+    setActiveIndex((i) => (i === safeImages.length - 1 ? 0 : i + 1));
 
   return (
     <section className="space-y-3">
@@ -29,13 +35,13 @@ export default function MediaGallery({
       {/* Main viewer */}
       <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-neutral-900">
         <Image
-          src={images[activeIndex]}
+          src={safeImages[activeIndex]}
           alt={`${title} gallery image ${activeIndex + 1}`}
           fill
           className="object-cover cursor-zoom-in"
           onClick={() => setIsOpen(true)}
         />
-        {images.length > 1 && (
+        {safeImages.length > 1 && (
           <>
             <button
               type="button"
@@ -58,9 +64,9 @@ export default function MediaGallery({
       </div>
 
       {/* Thumbnails */}
-      {images.length > 1 && (
+      {safeImages.length > 1 && (
         <div className="flex gap-2 overflow-x-auto no-scrollbar pb-1">
-          {images.map((src, i) => (
+          {safeImages.map((src, i) => (
             <button
               key={src + i}
               type="button"
@@ -95,13 +101,13 @@ export default function MediaGallery({
           </button>
           <div className="relative w-full max-w-4xl aspect-video">
             <Image
-              src={images[activeIndex]}
+              src={safeImages[activeIndex]}
               alt={`${title} gallery image ${activeIndex + 1}`}
               fill
               className="object-contain"
             />
           </div>
-          {images.length > 1 && (
+          {safeImages.length > 1 && (
             <>
               <button
                 type="button"

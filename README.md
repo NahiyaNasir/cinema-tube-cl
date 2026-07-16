@@ -3,6 +3,7 @@
 A modern full-stack Movie & Series Rating Platform where users can explore, stream, rate, review, and interact with movies and TV series. The platform includes authentication, admin management, reviews, comments, likes, watchlists, subscriptions, and premium streaming features.
 
 Built with scalability, performance, security, and user experience in mind using modern web technologies.
+
 [Live link](https://cinema-tube-cl.vercel.app/)
 ---
 

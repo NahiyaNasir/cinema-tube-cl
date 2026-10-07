@@ -1,9 +1,14 @@
+<img width="11758" height="2721" alt="CT-Cl" src="https://github.com/user-attachments/assets/59078639-0ad9-43a1-a066-86a39bc49fcf" />
+
+
+
 # 🎬 Movie & Series Rating Portal
 
 A modern full-stack Movie & Series Rating Platform where users can explore, stream, rate, review, and interact with movies and TV series. The platform includes authentication, admin management, reviews, comments, likes, watchlists, subscriptions, and premium streaming features.
 
 Built with scalability, performance, security, and user experience in mind using modern web technologies.
 
+[Live link](https://cinema-tube-cl.vercel.app/)
 ---
 
 ## 🚀 Features

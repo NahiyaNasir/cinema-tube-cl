@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDefaultRoute, getRouteOwner, isAuthRoute, Role } from "./src/utils/auth-client";
-import { verifyToken } from "./src/utils/jwtUtils";
-import { getNewTokensWithRefreshToken, getUserInfo } from "./src/service/auth.service";
-import { isTokenExpiredSoon } from "./src/utils/token";
+import { getDefaultRoute, getRouteOwner, isAuthRoute, Role } from "./utils/auth-client";
+import { verifyToken } from "./utils/jwtUtils";
+import { getNewTokensWithRefreshToken, getUserInfo } from "./service/auth.service";
+import { isTokenExpiredSoon } from "./utils/token";
+
+// ... rest of the file is unchanged
 
 
 async function refreshTokenMiddleware(refreshToken: string): Promise<boolean> {
@@ -33,7 +35,7 @@ export async function proxy(request: NextRequest) {
 
     const routerOwner = getRouteOwner(pathname);
     const isAuth = isAuthRoute(pathname);
-console.log("PATH:", pathname, "OWNER:", routerOwner, "VALID TOKEN:", isValidAccessToken);
+// console.log("PATH:", pathname, "OWNER:", routerOwner, "VALID TOKEN:", isValidAccessToken);
     // 2. Token Refresh Logic
     if (
       refreshToken &&

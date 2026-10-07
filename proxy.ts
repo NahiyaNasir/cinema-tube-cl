@@ -33,7 +33,7 @@ export async function proxy(request: NextRequest) {
 
     const routerOwner = getRouteOwner(pathname);
     const isAuth = isAuthRoute(pathname);
-
+console.log("PATH:", pathname, "OWNER:", routerOwner, "VALID TOKEN:", isValidAccessToken);
     // 2. Token Refresh Logic
     if (
       refreshToken &&
@@ -116,6 +116,7 @@ export async function proxy(request: NextRequest) {
     }
 
     return NextResponse.next();
+    
   } catch (error) {
     console.error("Middleware Error:", error);
     const response = NextResponse.redirect(new URL("/login", request.url));

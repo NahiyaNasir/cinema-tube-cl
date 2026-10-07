@@ -65,15 +65,15 @@ export const loginAction = async (
     ) {
       return redirect(`/verify-email?email=${parsedPayload.data.email}`);
     }
-    if (
-      error &&
-      typeof error === "object" &&
-      "digest" in error &&
-      typeof error.digest === "string" &&
-      error.digest.startsWith("NEXT_REDIRECT")
-    ) {
-      throw error;
-    }
+    // if (
+    //   error &&
+    //   typeof error === "object" &&
+    //   "digest" in error &&
+    //   typeof error.digest === "string" &&
+    //   error.digest.startsWith("NEXT_REDIRECT")
+    // ) {
+    //   throw error;
+    // }
 
     return {
       success: false,

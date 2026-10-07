@@ -9,9 +9,10 @@ export const logoutAction = async () => {
     await deleteCookie("refreshToken");
     await deleteCookie("better-auth.session_token");
     
-    redirect("/");
+   
   } catch (error) {
     console.error("Logout error:", error);
     throw error;
   }
+ redirect("/");
 };

@@ -23,13 +23,13 @@ interface LoginFormProps {
   redirectPath?: string;
 }
 
-export default function LoginForm({ }: LoginFormProps) {
+export default function LoginForm({ redirectPath }: LoginFormProps) {
   const router = useRouter();
   const [serverError, setServerError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const { mutateAsync, isPending } = useMutation({
-    mutationFn: (payload: ILoginProps) => loginAction(payload,),
+    mutationFn: (payload: ILoginProps) => loginAction(payload, redirectPath),
   });
 
   const form = useForm({
@@ -42,7 +42,7 @@ export default function LoginForm({ }: LoginFormProps) {
       try {
         const res = (await mutateAsync(value)) as any;
 
-        // console.log("Login form action response: ", res);
+        console.log("Login form action response: ", res);
 
         if (res?.message === "Login failed: Invalid email or password") {
           toast.warning("User not found! Please register first.");
@@ -53,7 +53,7 @@ export default function LoginForm({ }: LoginFormProps) {
         //   return;
         // }
       } catch (error: any) {
-        // console.log("Login form action error: ", error);
+        console.log("Login form action error: ", error);
         setServerError(`Login failed: ${error.message}`);
       }
     },
@@ -156,6 +156,23 @@ export default function LoginForm({ }: LoginFormProps) {
               )}
             </form.Subscribe>
           </form>
+
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full"
+            onClick={() => {
+              // TODO: replace with your seeded demo/admin account.
+              // Your backend creates the real admin from ADMIN_EMAIL /
+              // ADMIN_PASSWORD in your .env (see src/app/utils/seedAdmin.ts) —
+              // put those same values here.
+              form.setFieldValue("email", "superadmin@gmail.com");
+              form.setFieldValue("password", "123456789");
+              toast.info("Demo credentials filled in — click Log In");
+            }}
+          >
+            Use demo credentials
+          </Button>
         </div>
         <div className="flex items-center justify-center gap-2 mt-5">
           <p className="text-sm text-muted-foreground">

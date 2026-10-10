@@ -23,7 +23,7 @@ export const commonProtectedRoutes: RouteConfig = {
   exact: ["/profile", "/change-password", "/logout", "/settings"],
   pattern: [
     /^\/profile(\/.*)?$/, 
-       /^\/watch\/.*/
+
   ],
 };
 

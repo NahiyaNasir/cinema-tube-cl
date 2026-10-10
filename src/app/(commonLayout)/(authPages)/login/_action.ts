@@ -54,26 +54,30 @@ export const loginAction = async (
         redirectPath && isValidRedirectForRole(redirectPath, role as Role)
           ? redirectPath
           : getDefaultRoute(role as Role);
-
-      redirect(targetPath);
+ return {
+      success: true,
+      redirectPath: needPasswordChange
+        ? `/reset-password?email=${email}&redirectPath=${redirectPath || ""}`
+        : targetPath,
+    };
     }
   } catch (error: any) {
     // console.log(`Login action error----------:`, error.message);
-    if (
-      (error && error.message === "Email not verified") ||
-      error.message === "User not verified. Again send verification email."
-    ) {
-      return redirect(`/verify-email?email=${parsedPayload.data.email}`);
-    }
     // if (
-    //   error &&
-    //   typeof error === "object" &&
-    //   "digest" in error &&
-    //   typeof error.digest === "string" &&
-    //   error.digest.startsWith("NEXT_REDIRECT")
+    //   (error && error.message === "Email not verified") ||
+    //   error.message === "User not verified. Again send verification email."
     // ) {
-    //   throw error;
+    //   return redirect(`/verify-email?email=${parsedPayload.data.email}`);
     // }
+    if (
+      error &&
+      typeof error === "object" &&
+      "digest" in error &&
+      typeof error.digest === "string" &&
+      error.digest.startsWith("NEXT_REDIRECT")
+    ) {
+      throw error;
+    }
 
     return {
       success: false,

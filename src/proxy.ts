@@ -52,17 +52,14 @@ export async function proxy(request: NextRequest) {
       isValidAccessToken = false;
       if (isAuth) {
         // already on /login or /register: don't redirect to ourselves
-        const res = NextResponse.next();
-        res.cookies.delete("accessToken");
-        res.cookies.delete("refreshToken");
-        return res;
+        const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set("redirect", pathname);
+      const response = NextResponse.redirect(loginUrl);
+      response.cookies.delete("accessToken");
+      response.cookies.delete("refreshToken");
+      return response;
       }
-      // const loginUrl = new URL("/login", request.url);
-      // loginUrl.searchParams.set("redirect", pathname);
-      // const response = NextResponse.redirect(loginUrl);
-      // response.cookies.delete("accessToken");
-      // response.cookies.delete("refreshToken");
-      // return response;
+     
 console.log(
   "PATH:", pathname,
   "VERIFY:", tokenResult ? (tokenResult.success ? "ok" : tokenResult.message) : "no accessToken",

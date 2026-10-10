@@ -11,6 +11,7 @@ export interface ILoginResponse {
         status : string;
         isDeleted : boolean;
         emailVerified : boolean;
+     
     }
 }
 

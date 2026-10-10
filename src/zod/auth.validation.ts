@@ -16,6 +16,7 @@ export const loginZodSchema = z.object({
   //   /[^A-Za-z0-9]/,
   //   "Password must contain at least one special character",
   // ),,
+  redirectPath: z.string().optional(),
 });
 
 export const registerZodSchema = z.object({
